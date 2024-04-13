@@ -111,8 +111,8 @@ const projects = ref<ProjectInterface[]>([
   // },
   {
     name: 'My Portfolio',
-    website: '/',
-    github: 'https://github.com/Realgreat01/portfolio',
+    website: 'francisgbohunmi.tech',
+    github: 'https://github.com/Gbohunmifrancis/portfolio-master/',
     description:
       'I built my own portfolio to showcase my expertise in web development, emphasizing my skills in creating interactive and visually appealing user interfaces. It displays my frontend technologies proficiency, design principles, and user experience capabilities, along with previous projects and accomplishments.',
     tools: ['Vue', 'TypeScript', 'TailwindCSS'],
