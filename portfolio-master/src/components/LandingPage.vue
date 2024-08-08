@@ -3,7 +3,7 @@
     <h1 class="">
       <span class="text-small text-brand-100">Hi, I'm</span>
       <span class="block text-medium font-bold text-brand-300 md:text-[7rem]">
-        Francis Gbohunmi
+        Francis Gbohunmi Ephraim
       </span>
     </h1>
     <h2
@@ -12,7 +12,7 @@
       Fullstack Developer
     </h2>
     <p class="my-medium font-thin md:w-4/5">
-      As a skilled software engineer, I specialize in building frontend and
+      I am a skilled software engineer, I specialize in building frontend and
       backend applications. With a strong commitment to excellence, I prioritize
       speed, accessibility, and responsiveness in the applications I deliver.
     </p>

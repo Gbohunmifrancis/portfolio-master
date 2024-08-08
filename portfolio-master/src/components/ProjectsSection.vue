@@ -150,7 +150,7 @@ const projects = ref<ProjectInterface[]>([
     ],
     is_public: false,
   },
-  /*{
+  {
     name: 'Crypto Dashboard',
     website: 'https://verix-exchange.vercel.app',
     github: 'https://github.com/Realgreat01/crypto-dashboard',
@@ -195,7 +195,7 @@ const projects = ref<ProjectInterface[]>([
       'I learned data handling by building a front-end application that filters job postings based on companies. This project was a challenge by Frontend Mentor and helped enhance my skills in working with data effectively.',
     tools: ['HTML', 'Javascript', 'JSON', 'SCSS'],
     is_public: true,
-  },*/
+  },
 ]);
 </script>
 
