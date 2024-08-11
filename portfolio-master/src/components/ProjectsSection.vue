@@ -155,7 +155,7 @@ const projects = ref<ProjectInterface[]>([
     website: 'https://verix-exchange.vercel.app',
     github: 'https://github.com/Gbohunmifrancis',
     description:
-      'I created a sleek dashboard for a cryptocurrency exchange based on a captivating design from Figma. It offers a user-friendly interface for monitoring assets and making trades',
+      'I created a sleek dashboard for a cryptocurrency exchange platform based on a captivating design from Figma. It offers a user-friendly interface for monitoring assets and making trades',
     tools: ['Vue', 'Javascript', 'TailwindCSS', 'Chart JS'],
     is_public: true,
   },
@@ -185,7 +185,7 @@ const projects = ref<ProjectInterface[]>([
     description:
       'I built my first Vue application—a simple app to check available movies from the IMDB website. Users can easily browse and explore a wide range of films with this user-friendly app.',
     tools: ['Vue', 'Javascript', 'APIs', 'SCSS'],
-    is_public: true,
+    is_public: true,  
   },
 
   {
