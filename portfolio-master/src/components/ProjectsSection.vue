@@ -153,7 +153,7 @@ const projects = ref<ProjectInterface[]>([
   {
     name: 'Crypto Dashboard',
     website: 'https://verix-exchange.vercel.app',
-    github: 'https://github.com/Realgreat01/crypto-dashboard',
+    github: 'https://github.com/Gbohunmifrancis',
     description:
       'I created a sleek dashboard for a cryptocurrency exchange based on a captivating design from Figma. It offers a user-friendly interface for monitoring assets and making trades',
     tools: ['Vue', 'Javascript', 'TailwindCSS', 'Chart JS'],
@@ -163,6 +163,7 @@ const projects = ref<ProjectInterface[]>([
     name: 'Verix Shop',
     website: 'https://verix-shop.vercel.app',
     github: 'https://github.com/Realgreat01/verix-shop',
+    
     description:
       'I designed and developed a fully functional e-commerce website using dummy data from fakestoreapi.com. It offers an immersive shopping experience with a captivating design.',
     tools: ['Vue', 'Javascript', 'APIs', 'SCSS'],
@@ -171,7 +172,7 @@ const projects = ref<ProjectInterface[]>([
   {
     name: 'Weather App',
     website: 'https://verix-weather.vercel.app/',
-    github: 'https://github.com/Realgreat01/weather-app',
+    github: 'https://github.com/Gbohunmifrancis',
     description:
       'I created a straightforward application that provides real-time weather information for any city worldwide. Users can easily access the current weather conditions for their desired location, offering convenience and up-to-date weather updates at their fingertips.',
     tools: ['Vue', 'Javascript', 'APIs', 'SCSS'],
@@ -180,7 +181,7 @@ const projects = ref<ProjectInterface[]>([
   {
     name: 'Movie App',
     website: 'https://verix-movie.vercel.app/',
-    github: 'https://github.com/Realgreat01/movie-app',
+    github: 'https://github.com/Gbohunmifrancis',
     description:
       'I built my first Vue application—a simple app to check available movies from the IMDB website. Users can easily browse and explore a wide range of films with this user-friendly app.',
     tools: ['Vue', 'Javascript', 'APIs', 'SCSS'],
@@ -190,7 +191,7 @@ const projects = ref<ProjectInterface[]>([
   {
     name: 'Job Listing App',
     website: 'https://static-job.vercel.app/',
-    github: 'https://github.com/Realgreat01/static-job-listings-master',
+    github: 'https://github.com/Gbohunmifrancis',
     description:
       'I learned data handling by building a front-end application that filters job postings based on companies. This project was a challenge by Frontend Mentor and helped enhance my skills in working with data effectively.',
     tools: ['HTML', 'Javascript', 'JSON', 'SCSS'],
