@@ -162,7 +162,7 @@ const projects = ref<ProjectInterface[]>([
   {
     name: 'Verix Shop',
     website: 'https://verix-shop.vercel.app',
-    github: 'https://github.com/Realgreat01/verix-shop',
+    github: 'https://github.com/Gbohunmifrancis',
     
     description:
       'I designed and developed a fully functional e-commerce website using dummy data from fakestoreapi.com. It offers an immersive shopping experience with a captivating design.',
