@@ -70,14 +70,14 @@ const experiences = ref([
     description:
       'I collaborated with cross-platform team to push a B2B Sales Management System. It is a web-based application designed to streamline sales processes, manage customer inquiries, and generate quotations for potential customers. The system facilitates efficient communication between sales agents and customers, tracks interactions, and provides insights to drive sales performance.',
   },
-  {
-    company: ['Cardinal Health Inc, Dublin'],
-    type: 'Freelance',
-    role: 'dotnet developer',
-    duration: 'May 2023 - December 2023',
-    description:
-      'As a Back-end Developer at Cardinal Health, I was responsible for managing and ensuring the secure storage, retrieval, and management of sensitive patient information as part of the Electronic Health Record (EHR) system integration project. The project aimed to develop and integrate EHR systems to facilitate comprehensive patient care and improve communication among medical professionals.',
-  },
+  // {
+  //   company: ['Cardinal Health Inc, Dublin'],
+  //   type: 'Freelance',
+  //   role: 'dotnet developer',
+  //   duration: 'May 2023 - December 2023',
+  //   description:
+  //     'As a Back-end Developer at Cardinal Health, I was responsible for managing and ensuring the secure storage, retrieval, and management of sensitive patient information as part of the Electronic Health Record (EHR) system integration project. The project aimed to develop and integrate EHR systems to facilitate comprehensive patient care and improve communication among medical professionals.',
+  // },
   
 ]);
 </script>
