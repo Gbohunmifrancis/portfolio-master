@@ -150,53 +150,53 @@ const projects = ref<ProjectInterface[]>([
     ],
     is_public: false,
   },
-  {
-    name: 'Crypto Dashboard',
-    website: 'https://verix-exchange.vercel.app',
-    github: 'https://github.com/Gbohunmifrancis',
-    description:
-      'I created a sleek dashboard for a cryptocurrency exchange platform based on a captivating design from Figma. It offers a user-friendly interface for monitoring assets and making trades',
-    tools: ['Vue', 'Javascript', 'TailwindCSS', 'Chart JS'],
-    is_public: true,
-  },
-  {
-    name: 'Verix Shop',
-    website: 'https://verix-shop.vercel.app',
-    github: 'https://github.com/Gbohunmifrancis',
+  // {
+  //   name: 'Crypto Dashboard',
+  //   website: 'https://verix-exchange.vercel.app',
+  //   github: 'https://github.com/Gbohunmifrancis',
+  //   description:
+  //     'I created a sleek dashboard for a cryptocurrency exchange platform based on a captivating design from Figma. It offers a user-friendly interface for monitoring assets and making trades',
+  //   tools: ['Vue', 'Javascript', 'TailwindCSS', 'Chart JS'],
+  //   is_public: true,
+  // },
+  // {
+  //   name: 'Verix Shop',
+  //   website: 'https://verix-shop.vercel.app',
+  //   github: 'https://github.com/Gbohunmifrancis',
     
-    description:
-      'I designed and developed a fully functional e-commerce website using dummy data from fakestoreapi.com. It offers an immersive shopping experience with a captivating design.',
-    tools: ['Vue', 'Javascript', 'APIs', 'SCSS'],
-    is_public: true,
-  },
-  {
-    name: 'Weather App',
-    website: 'https://verix-weather.vercel.app/',
-    github: 'https://github.com/Gbohunmifrancis',
-    description:
-      'I created a straightforward application that provides real-time weather information for any city worldwide. Users can easily access the current weather conditions for their desired location, offering convenience and up-to-date weather updates at their fingertips.',
-    tools: ['Vue', 'Javascript', 'APIs', 'SCSS'],
-    is_public: true,
-  },
+  //   description:
+  //     'I designed and developed a fully functional e-commerce website using dummy data from fakestoreapi.com. It offers an immersive shopping experience with a captivating design.',
+  //   tools: ['Vue', 'Javascript', 'APIs', 'SCSS'],
+  //   is_public: true,
+  // },
+  // {
+  //   name: 'Weather App',
+  //   website: 'https://verix-weather.vercel.app/',
+  //   github: 'https://github.com/Gbohunmifrancis',
+  //   description:
+  //     'I created a straightforward application that provides real-time weather information for any city worldwide. Users can easily access the current weather conditions for their desired location, offering convenience and up-to-date weather updates at their fingertips.',
+  //   tools: ['Vue', 'Javascript', 'APIs', 'SCSS'],
+  //   is_public: true,
+  // },
   {
     name: 'Movie App',
     website: 'https://verix-movie.vercel.app/',
-    github: 'https://github.com/Gbohunmifrancis',
+    github: 'https://github.com/Gbohunmifrancis/Movie-App',
     description:
       'I built my first Vue application—a simple app to check available movies from the IMDB website. Users can easily browse and explore a wide range of films with this user-friendly app.',
     tools: ['Vue', 'Javascript', 'APIs', 'SCSS'],
     is_public: true,  
   },
 
-  {
-    name: 'Job Listing App',
-    website: 'https://static-job.vercel.app/',
-    github: 'https://github.com/Gbohunmifrancis',
-    description:
-      'I learned data handling by building a front-end application that filters job postings based on companies. This project was a challenge by Frontend Mentor and helped enhance my skills in working with data effectively.',
-    tools: ['HTML', 'Javascript', 'JSON', 'SCSS'],
-    is_public: true,
-  },
+  // {
+  //   name: 'Job Listing App',
+  //   website: 'https://static-job.vercel.app/',
+  //   github: 'https://github.com/Gbohunmifrancis',
+  //   description:
+  //     'I learned data handling by building a front-end application that filters job postings based on companies. This project was a challenge by Frontend Mentor and helped enhance my skills in working with data effectively.',
+  //   tools: ['HTML', 'Javascript', 'JSON', 'SCSS'],
+  //   is_public: true,
+  // },
 ]);
 </script>
 
