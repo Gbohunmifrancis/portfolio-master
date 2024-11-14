@@ -2,7 +2,7 @@
   <div class="flex flex-col md:mt-[10rem]" id="about">
     <SectionTitle>About</SectionTitle>
     <p class="w-full text-normal font-[300] md:w-11/12">
-      Hey there! 👋🏾 I'm Francis Gbohunmi, a passionate Fullstack Developer
+      Hey there! 👋🏾 I'm Francis Gbohunmi, a passionate Backend Developer
       with a solid background in .Net Technologies. I thrive on crafting
       exceptional digital experiences and leveraging cutting-edge technologies
       to build innovative solutions. Simultaneously, I'm pursuing a degree in Statistics.
