@@ -9,10 +9,10 @@
     <h2
       class="-mt-thin bg-gradient-to-r from-brand-600 to-brand-900 bg-clip-text text-small font-black text-transparent"
     >
-      Fullstack Developer
+      Backend Developer
     </h2>
     <p class="my-medium font-thin md:w-4/5">
-      I am a skilled software engineer, I specialize in building frontend and
+      I am a skilled software engineer, I specialize in building robust
       backend applications. With a strong commitment to excellence, I prioritize
       speed, accessibility, and responsiveness in the applications I deliver.
     </p>
