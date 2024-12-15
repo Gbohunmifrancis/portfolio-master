@@ -178,8 +178,8 @@ const projects = ref<ProjectInterface[]>([
   //   is_public: true,
   // },
   {
-    name: 'Movie App',
-    website: 'https://verix-movie.vercel.app/',
+    name: 'MVC Movie App',
+    website: 'https://github.com/Gbohunmifrancis/Movie-App',
     github: 'https://github.com/Gbohunmifrancis/Movie-App',
     description:
       'I built my first Vue application—a simple app to check available movies from the IMDB website. Users can easily browse and explore a wide range of films with this user-friendly app.',
