@@ -83,24 +83,23 @@ const projects = ref<ProjectInterface[]>([
   //   ],
   //   is_public: true,
   // },
-  // {
-  //   name: 'QuickHire',
-  //   website: 'https://quickhire.vercel.app',
-  //   github: 'https://github.com/Realgreat01/resume-builder-backend',
-  //   description:
-  //     'I built a full-stack application that empowers developers to effortlessly create portfolios and apply for jobs with a single click. It streamlines the process by providing a user-friendly interface for showcasing skills, projects, and achievements, while simplifying job search and application.',
-  //   tools: [
-  //     'NodeJS',
-  //     'Express',
-  //     'MongoDB',
-  //     'JavaScript',
-  //     'Vue',
-  //     'TailwindCSS',
-  //     'Pinia',
-  //     'Swagger',
-  //   ],
-  //   is_public: true,
-  // },
+  {
+    name: 'Carepulse Healthcare Management System',
+    website: 'https://github.com/Gbohunmifrancis/Carepulse',
+    github: '',
+    description:
+      'Carepulse Backend is a RESTful API built with ASP.NET Core, designed to support a healthcare management application. This backend service provides authentication, appointment scheduling, and management of patients, doctors, and admins. The project includes role-based authentication for admin, doctors, and patients, with JWT tokens for secure access.: [
+      'C#',
+      'SQL SERVER',
+      'Entity Framework',
+      '.Net Web API',
+      'MVC architecture',
+      'Swagger',
+      'Identity',
+      'Swagger',
+    ],
+    is_public: true,
+  },
   // {
   //   name: 'Divest',
   //   website: 'https://www.usedivest.com',
