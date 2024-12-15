@@ -12,7 +12,6 @@
           <div class="flex gap-x-4">
             <a
               :href="project.github"
-              class=""
               v-if="project.is_public"
               target="_blank"
             >
@@ -20,7 +19,7 @@
                 class="cursor-pointer text-small hover:scale-[1.2] hover:text-brand-400"
               />
             </a>
-            <a :href="project.website" class="" target="_blank">
+            <a :href="project.website" target="_blank">
               <FeExternalLink
                 class="cursor-pointer text-small hover:scale-[1.2] hover:text-brand-400"
               />
@@ -55,6 +54,7 @@ import {
   PhFillGithubLogo,
 } from '@kalimahapps/vue-icons';
 import SectionTitle from './reusables/SectionTitle.vue';
+
 interface ProjectInterface {
   name: string;
   website: string;
@@ -63,61 +63,35 @@ interface ProjectInterface {
   tools: string[];
   is_public: boolean;
 }
+
 const projects = ref<ProjectInterface[]>([
-  //{
-  //   name: 'Syntrix',
-  //   website: 'https://staging-buzz-chat.vercel.app',
-  //   github: 'https://github.com/Realgreat01/chat-application-frontend',
-  //   description:
-  //     'I created a full-stack social media application that leverages various technologies and frameworks to enable users to establish effortless online connections. It provides a platform for individuals to cultivate relationships with their loved ones and openly share their thoughts and emotions with a broader audience.',
-  //   tools: [
-  //     'NodeJS',
-  //     'Express',
-  //     'SocketIO',
-  //     'MongoDB',
-  //     'Pinia',
-  //     'Vue',
-  //     'JavaScript',
-  //     'TailwindCSS',
-  //     'Swagger',
-  //   ],
-  //   is_public: true,
-  // },
   {
     name: 'Carepulse Healthcare Management System',
     website: 'https://github.com/Gbohunmifrancis/Carepulse',
     github: '',
     description:
-      'Carepulse Backend is a RESTful API built with ASP.NET Core, designed to support a healthcare management application. This backend service provides authentication, appointment scheduling, and management of patients, doctors, and admins. The project includes role-based authentication for admin, doctors, and patients, with JWT tokens for secure access.: [
+      'Carepulse Backend is a RESTful API built with ASP.NET Core, designed to support a healthcare management application. This backend service provides authentication, appointment scheduling, and management of patients, doctors, and admins. The project includes role-based authentication for admin, doctors, and patients, with JWT tokens for secure access.',
+    tools: [
       'C#',
       'SQL SERVER',
       'Entity Framework',
       '.Net Web API',
       'MVC architecture',
       'Swagger',
-      'Identity',
-      'Swagger',
+      'Identity'
     ],
     is_public: true,
   },
-  // {
-  //   name: 'Divest',
-  //   website: 'https://www.usedivest.com',
-  //   description:
-  //     'I built the landing page for Divest, a cryptocurrency conversion company based in Nigeria. The company assists you in effortlessly converting your cryptocurrencies into fiat currency and instantly crediting it to any bank account of your choice.',
-  //   tools: ['Vue', 'Typescript', 'TailwindCSS'],
-  //   is_public: false,
-  // },
   {
     name: 'My Portfolio',
-    website: 'francisgbohunmi.tech',
+    website: 'https://francisgbohunmi.tech',
     github: 'https://github.com/Gbohunmifrancis/portfolio-master/',
     description:
       'I built my own portfolio to showcase my expertise in web development, emphasizing my skills in creating interactive and visually appealing user interfaces. It displays my frontend technologies proficiency, design principles, and user experience capabilities, along with previous projects and accomplishments.',
     tools: ['Vue', 'TypeScript', 'TailwindCSS'],
     is_public: true,
   },
-   {
+  {
     name: 'ThriveBookstore',
     website: 'https://github.com/Gbohunmifrancis/ThriveBookstore',
     github: 'https://github.com/Gbohunmifrancis/ThriveBookstore',
@@ -139,7 +113,7 @@ const projects = ref<ProjectInterface[]>([
     website: 'https://github.com/Gbohunmifrancis/Inmates-Management-System',
     github: 'https://github.com/Gbohunmifrancis/Inmates-Management-System',
     description:
-      'The Correctional Facility Management System is a comprehensive software solution designed to streamline the management of inmates within correctional facilities. The system provides a centralized platform for correctional staff to efficiently track inmate information, monitor activities, and ensure the safety and security of the facility. By automating manual processes and integrating key functionalities, the system enhances operational efficiency, improves inmate supervision, and facilitates effective communication among staff members. ',
+      'The Correctional Facility Management System is a comprehensive software solution designed to streamline the management of inmates within correctional facilities. The system provides a centralized platform for correctional staff to efficiently track inmate information, monitor activities, and ensure the safety and security of the facility. By automating manual processes and integrating key functionalities, the system enhances operational efficiency, improves inmate supervision, and facilitates effective communication among staff members.',
     tools: [
       'Blazor Web Assembly',
       'Entity Framework',
@@ -149,34 +123,6 @@ const projects = ref<ProjectInterface[]>([
     ],
     is_public: false,
   },
-  // {
-  //   name: 'Crypto Dashboard',
-  //   website: 'https://verix-exchange.vercel.app',
-  //   github: 'https://github.com/Gbohunmifrancis',
-  //   description:
-  //     'I created a sleek dashboard for a cryptocurrency exchange platform based on a captivating design from Figma. It offers a user-friendly interface for monitoring assets and making trades',
-  //   tools: ['Vue', 'Javascript', 'TailwindCSS', 'Chart JS'],
-  //   is_public: true,
-  // },
-  // {
-  //   name: 'Verix Shop',
-  //   website: 'https://verix-shop.vercel.app',
-  //   github: 'https://github.com/Gbohunmifrancis',
-    
-  //   description:
-  //     'I designed and developed a fully functional e-commerce website using dummy data from fakestoreapi.com. It offers an immersive shopping experience with a captivating design.',
-  //   tools: ['Vue', 'Javascript', 'APIs', 'SCSS'],
-  //   is_public: true,
-  // },
-  // {
-  //   name: 'Weather App',
-  //   website: 'https://verix-weather.vercel.app/',
-  //   github: 'https://github.com/Gbohunmifrancis',
-  //   description:
-  //     'I created a straightforward application that provides real-time weather information for any city worldwide. Users can easily access the current weather conditions for their desired location, offering convenience and up-to-date weather updates at their fingertips.',
-  //   tools: ['Vue', 'Javascript', 'APIs', 'SCSS'],
-  //   is_public: true,
-  // },
   {
     name: 'MVC Movie App',
     website: 'https://github.com/Gbohunmifrancis/Movie-App',
@@ -184,19 +130,10 @@ const projects = ref<ProjectInterface[]>([
     description:
       'I built my first Vue application—a simple app to check available movies from the IMDB website. Users can easily browse and explore a wide range of films with this user-friendly app.',
     tools: ['Vue', 'Javascript', 'APIs', 'SCSS'],
-    is_public: true,  
+    is_public: true,
   },
-
-  // {
-  //   name: 'Job Listing App',
-  //   website: 'https://static-job.vercel.app/',
-  //   github: 'https://github.com/Gbohunmifrancis',
-  //   description:
-  //     'I learned data handling by building a front-end application that filters job postings based on companies. This project was a challenge by Frontend Mentor and helped enhance my skills in working with data effectively.',
-  //   tools: ['HTML', 'Javascript', 'JSON', 'SCSS'],
-  //   is_public: true,
-  // },
 ]);
 </script>
 
 <style scoped></style>
+
