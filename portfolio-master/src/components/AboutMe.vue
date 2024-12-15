@@ -2,20 +2,11 @@
   <div class="flex flex-col md:mt-[10rem]" id="about">
     <SectionTitle>About</SectionTitle>
     <p class="w-full text-normal font-[300] md:w-11/12">
-      Hey there! 👋🏾 I'm Francis Gbohunmi, a passionate Backend Developer
-      with a solid background in .Net Technologies. I thrive on crafting
-      exceptional digital experiences and leveraging cutting-edge technologies
-      to build innovative solutions. Simultaneously, I'm pursuing a degree in Statistics.
+I’m a dedicated Backend Developer specializing in .NET technologies, with a strong passion for creating robust, scalable, and user-focused digital solutions. With a solid foundation in software engineering and a pursuit of a degree in Statistics, I bring a unique combination of analytical thinking and technical expertise to every project.
       <br />
       <br />
-      Beyond coding and Statistics, I find immense joy in engaging in meaningful
-      conversations, connecting with people from diverse backgrounds, and
-      expanding my horizons through Music. By embracing a well-rounded set
-      of interests, including my love for reading, fostering human connections,
-      and advocating for positive change, I bring a diverse perspective and a
-      deep understanding to my work. I'm thrilled to collaborate on impactful
-      projects that utilize technology to make a tangible difference in people's
-      lives.
+     Beyond development, I value meaningful connections, continuous learning, and personal growth. Whether I’m exploring the depths of data analytics, composing melodies on the piano, or delving into thought-provoking books, I approach each endeavor with curiosity and a drive for excellence.
+I thrive in collaborative environments where innovative ideas are transformed into impactful solutions. Let's build technology that empowers individuals and creates lasting change.
       <br />
       <br />
       Let's join forces and create something truly amazing together!
