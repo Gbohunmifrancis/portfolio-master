@@ -69,7 +69,7 @@ const experiences = ref([
     role: 'AWS solutions Architect',
     duration: 'June 2024 - August 2024',
     description:
-      'I gained Hands-on experience working with Amazon web services, Learnt the intricaces of Elastic cloud computing(EC2),Deployed static sites on S3 buckets and worked with relational Database Services. It was rounded off with a web-based project that triggers a lamda function after detecting the nearest Hospital based on the clients location and IP address.'
+      'I gained Hands-on experience working with Amazon web services, Learnt the intricaces of Elastic cloud computing(EC2),Deployed static sites on S3 buckets and worked with relational Database Services. It was rounded off with a web-based project that triggers a lamda function after detecting the nearest Hospital based on the clients location and IP address.',
   },
   {
     company: ['GFAMS CONSULTING, Lagos'],
