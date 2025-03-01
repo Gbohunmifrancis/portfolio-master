@@ -78,6 +78,7 @@ const experiences = ref([
     duration: 'January 2024 - Present',
     description:
       'I collaborated with cross-platform team to push a B2B Sales Management System. It is a web-based application designed to streamline sales processes, manage customer inquiries, and generate quotations for potential customers. The system facilitates efficient communication between sales agents and customers, tracks interactions, and provides insights to drive sales performance.',
+  }
 
   
 ]);
