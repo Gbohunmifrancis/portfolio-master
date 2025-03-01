@@ -53,6 +53,15 @@ import { ref } from 'vue';
 import ButtonComponent from '@/components/reusables/ButtonComponent.vue';
 import SectionTitle from './reusables/SectionTitle.vue';
 const experiences = ref([
+    
+  {
+    company: ['X3 Lab, Akure'],
+    type: 'Contract',
+    role: 'dotnet developer',
+    duration: 'January 2025 - Present',
+    description:
+      'Assisted in researching, developing, and building the backend of an edutech platform targeted at universities, enabling students to choose courses, manage results, and track outstanding courses.',
+  },
 
 {
     company: ['Akure Tech Hub, Akure'],
@@ -69,15 +78,7 @@ const experiences = ref([
     duration: 'January 2024 - Present',
     description:
       'I collaborated with cross-platform team to push a B2B Sales Management System. It is a web-based application designed to streamline sales processes, manage customer inquiries, and generate quotations for potential customers. The system facilitates efficient communication between sales agents and customers, tracks interactions, and provides insights to drive sales performance.',
-  },
-  // {
-  //   company: ['Cardinal Health Inc, Dublin'],
-  //   type: 'Freelance',
-  //   role: 'dotnet developer',
-  //   duration: 'May 2023 - December 2023',
-  //   description:
-  //     'As a Back-end Developer at Cardinal Health, I was responsible for managing and ensuring the secure storage, retrieval, and management of sensitive patient information as part of the Electronic Health Record (EHR) system integration project. The project aimed to develop and integrate EHR systems to facilitate comprehensive patient care and improve communication among medical professionals.',
-  // },
+
   
 ]);
 </script>
