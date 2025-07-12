@@ -55,10 +55,19 @@ import SectionTitle from './reusables/SectionTitle.vue';
 const experiences = ref([
     
   {
+    company: ['Kuda Microfinance, Lagos'],
+    type: 'Internship',
+    role: 'Customer Experience Specialist',
+    duration: 'May 2025 - Present',
+    description:
+      ' Managed customer inquiries via email and chat, delivering prompt and professional responses to enhance customer satisfaction and retention',
+  },
+  
+  {
     company: ['X3 Lab, Akure'],
     type: 'Contract',
     role: 'dotnet developer',
-    duration: 'January 2025 - Present',
+    duration: 'January 2025 - July 2025',
     description:
       'Assisted in researching, developing, and building the backend of an edutech platform targeted at universities, enabling students to choose courses, manage results, and track outstanding courses.',
   },
@@ -75,7 +84,7 @@ const experiences = ref([
     company: ['GFAMS CONSULTING, Lagos'],
     type: 'Contract',
     role: 'Backend Developer',
-    duration: 'January 2024 - Present',
+    duration: 'January 2024 - July 2024',
     description:
       'I collaborated with cross-platform team to push a B2B Sales Management System. It is a web-based application designed to streamline sales processes, manage customer inquiries, and generate quotations for potential customers. The system facilitates efficient communication between sales agents and customers, tracks interactions, and provides insights to drive sales performance.',
   }
