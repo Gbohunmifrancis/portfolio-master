@@ -110,8 +110,8 @@ const projects = ref<ProjectInterface[]>([
   },
   {
     name: 'Inmates Management System',
-    website: 'https://github.com/Gbohunmifrancis/Inmates-Management-System',
-    github: 'https://github.com/Gbohunmifrancis/Inmates-Management-System',
+    website: 'https://fox-river.vercel.app/',
+    github: 'https://github.com/Gbohunmifrancis/Fox-River',
     description:
       'The Correctional Facility Management System is a comprehensive software solution designed to streamline the management of inmates within correctional facilities. The system provides a centralized platform for correctional staff to efficiently track inmate information, monitor activities, and ensure the safety and security of the facility. By automating manual processes and integrating key functionalities, the system enhances operational efficiency, improves inmate supervision, and facilitates effective communication among staff members.',
     tools: [
