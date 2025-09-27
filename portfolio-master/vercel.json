@@ -1,11 +1,8 @@
 {
-  "functions": {
-    "api/**/*.js": {
-      "memory": 1024,
-      "maxDuration": 10
+  "rewrites": [
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
     }
-  },
-  "env": {
-    "MONGODB_URI": "@mongodb_uri"
-  }
+  ]
 }

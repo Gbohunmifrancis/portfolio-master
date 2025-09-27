@@ -1,0 +1,14 @@
+{
+  "name": "portfolio-blog-backend",
+  "version": "1.0.0",
+  "description": "Express API server for portfolio blog",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "cd server && npm start",
+    "dev": "cd server && npm run dev",
+    "install-server": "cd server && npm install"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

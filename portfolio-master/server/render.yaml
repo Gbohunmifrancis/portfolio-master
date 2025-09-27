@@ -1,0 +1,3 @@
+# Render.com deployment script
+build: npm install
+start: npm start
