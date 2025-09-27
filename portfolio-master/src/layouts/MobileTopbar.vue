@@ -28,15 +28,24 @@
         <div
           class="my-medium flex flex-col gap-y-small-lite px-thin text-small text-brand"
         >
-          <a
-            @click="showModal = false"
-            class="links hover:font-bold hover:text-brand"
-            v-for="(route, index) in NavActions"
-            :href="route.route"
-            :key="index"
-          >
-            {{ route.title }}
-          </a>
+          <template v-for="(route, index) in NavActions" :key="index">
+            <router-link
+              v-if="route.title === 'Blog'"
+              :to="route.route"
+              @click="showModal = false"
+              class="links hover:font-bold hover:text-brand"
+            >
+              {{ route.title }}
+            </router-link>
+            <a
+              v-else
+              @click="showModal = false"
+              class="links hover:font-bold hover:text-brand"
+              :href="route.route"
+            >
+              {{ route.title }}
+            </a>
+          </template>
         </div>
         <div class="flex items-center justify-center gap-medium md:flex-col">
           <a
@@ -68,10 +77,11 @@ import { shallowRef, ref, watchEffect } from 'vue';
 
 const showModal = ref(false);
 const NavActions = ref([
-  { title: 'About', route: '#about' },
-  { title: 'Experience', route: '#experience' },
-  { title: 'Projects', route: '#projects' },
-  { title: 'Contact', route: '#contact' },
+  { title: 'About', route: '/#about' },
+  { title: 'Experience', route: '/#experience' },
+  { title: 'Projects', route: '/#projects' },
+  { title: 'Blog', route: '/blog' },
+  { title: 'Contact', route: '/#contact' },
 ]);
 const socialMediaLinks = shallowRef([
   {
