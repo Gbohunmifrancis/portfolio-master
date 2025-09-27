@@ -156,26 +156,50 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/portfo
 console.log('Attempting to connect to MongoDB...');
 console.log('MongoDB URI (masked):', MONGODB_URI.replace(/:[^:@]*@/, ':****@'));
 
-mongoose.connect(MONGODB_URI)
-  .then(() => {
-    console.log('✅ Connected to MongoDB successfully!');
-    console.log('📊 Database:', mongoose.connection.name);
-    // Seed admin user
-    seedAdmin();
-  })
-  .catch(err => {
-    console.error('❌ MongoDB connection error:', err.message);
-    
-    if (err.message.includes('authentication failed')) {
-      console.log('💡 Please check your MongoDB Atlas username and password');
+// MongoDB connection with retry logic
+const connectToMongoDB = async (retries = 3) => {
+  for (let i = 0; i < retries; i++) {
+    try {
+      await mongoose.connect(MONGODB_URI);
+      console.log('✅ Connected to MongoDB successfully!');
+      console.log('📊 Database:', mongoose.connection.name);
+      // Seed admin user
+      seedAdmin();
+      return;
+    } catch (err) {
+      console.error(`❌ MongoDB connection attempt ${i + 1} failed:`, err.message);
+      
+      if (err.message.includes('authentication failed')) {
+        console.log('💡 Please check your MongoDB Atlas username and password');
+      }
+      
+      if (err.message.includes('IP') || err.message.includes('whitelist') || err.message.includes('not whitelisted')) {
+        console.log('💡 Please whitelist your IP address in MongoDB Atlas:');
+        console.log('   1. Go to MongoDB Atlas dashboard');
+        console.log('   2. Navigate to Network Access');
+        console.log('   3. Click "Add IP Address"');
+        console.log('   4. Add your current IP or use 0.0.0.0/0 for development');
+      }
+      
+      if (err.message.includes('network')) {
+        console.log('💡 Please check your internet connection and MongoDB Atlas network access');
+      }
+
+      if (i === retries - 1) {
+        console.log('❌ All MongoDB connection attempts failed');
+        console.log('💡 You can:');
+        console.log('   1. Fix the MongoDB Atlas IP whitelist issue');
+        console.log('   2. Install MongoDB locally and use mongodb://localhost:27017/portfolio_blog');
+        process.exit(1);
+      } else {
+        console.log(`⏳ Retrying in 2 seconds... (${retries - i - 1} attempts remaining)`);
+        await new Promise(resolve => setTimeout(resolve, 2000));
+      }
     }
-    
-    if (err.message.includes('network')) {
-      console.log('💡 Please check your internet connection and MongoDB Atlas network access');
-    }
-    
-    process.exit(1);
-  });
+  }
+};
+
+connectToMongoDB();
 
 // Blog Post Schema
 const blogPostSchema = new mongoose.Schema({
