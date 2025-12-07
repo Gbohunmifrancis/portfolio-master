@@ -66,19 +66,50 @@ interface ProjectInterface {
 
 const projects = ref<ProjectInterface[]>([
   {
+    name: 'Recchx - Cold Email Outreach Platform',
+    website: 'https://recchx-client.vercel.app',
+    github: 'https://github.com/Gbohunmifrancis/Recchx',
+    description:
+      'A comprehensive cold email outreach platform built with .NET 8 following Clean Architecture and CQRS patterns. Features robust user management with JWT authentication, token blacklisting, single session enforcement, refresh token rotation, OAuth-based mailbox integration (Gmail/Outlook), prospect management, campaign automation, and Hangfire background jobs.',
+    tools: [
+      '.NET 8',
+      'PostgreSQL',
+      'Entity Framework',
+      'MediatR',
+      'JWT',
+      'Hangfire',
+    ],
+    is_public: true,
+  },
+  {
+    name: 'GlazionStudio Pottery AI',
+    website: 'https://github.com/Gbohunmifrancis/GlazionStudio',
+    github: 'https://github.com/Gbohunmifrancis/GlazionStudio',
+    description:
+      'An advanced AI-powered pottery knowledge API utilizing vector embeddings and RAG architecture, achieving intelligent query processing with 70%+ relevance threshold through OpenAI embeddings and Pinecone vector database integration. Features multi-modal AI combining text-based expertise with image analysis capabilities using OpenAI Vision API and DALL-E integration.',
+    tools: [
+      '.NET 8',
+      'Clean Architecture',
+      'OpenAI API',
+      'Pinecone',
+      'RAG',
+      'Cloudinary',
+    ],
+    is_public: true,
+  },
+  {
     name: 'Carepulse Healthcare Management System',
     website: 'https://github.com/Gbohunmifrancis/Carepulse',
-    github: '',
+    github: 'https://github.com/Gbohunmifrancis/Carepulse',
     description:
-      'Carepulse Backend is a RESTful API built with ASP.NET Core, designed to support a healthcare management application. This backend service provides authentication, appointment scheduling, and management of patients, doctors, and admins. The project includes role-based authentication for admin, doctors, and patients, with JWT tokens for secure access.',
+      'A comprehensive RESTful API using ASP.NET Core for healthcare management. Features a secure, role-based authentication system (Admin, Doctor, Patient) utilizing JWT to protect sensitive endpoints. Implements appointment scheduling, patient record management, and data handling for doctors and administrative staff.',
     tools: [
-      'C#',
-      'SQL SERVER',
+      'ASP.NET Core',
+      'SQL Server',
       'Entity Framework',
-      '.Net Web API',
-      'MVC architecture',
+      'JWT',
+      'RESTful API',
       'Swagger',
-      'Identity'
     ],
     is_public: true,
   },
@@ -87,8 +118,8 @@ const projects = ref<ProjectInterface[]>([
     website: 'https://francisgbohunmi.tech',
     github: 'https://github.com/Gbohunmifrancis/portfolio-master/',
     description:
-      'I built my own portfolio to showcase my expertise in web development, emphasizing my skills in creating interactive and visually appealing user interfaces. It displays my frontend technologies proficiency, design principles, and user experience capabilities, along with previous projects and accomplishments.',
-    tools: ['Vue', 'TypeScript', 'TailwindCSS'],
+      'A personal portfolio website showcasing my expertise in backend development and web technologies. Built with modern frontend technologies to create an interactive and visually appealing user interface, featuring a blog system with admin panel.',
+    tools: ['Vue 3', 'TypeScript', 'TailwindCSS', 'ASP.NET Core'],
     is_public: true,
   },
   {
@@ -96,40 +127,14 @@ const projects = ref<ProjectInterface[]>([
     website: 'https://github.com/Gbohunmifrancis/ThriveBookstore',
     github: 'https://github.com/Gbohunmifrancis/ThriveBookstore',
     description:
-      'ThriveBookstore is an online platform designed to provide book enthusiasts with a convenient and immersive shopping experience. The platform offers a vast selection of books across various genres, allowing users to explore, purchase, and interact with their favorite titles from the comfort of their homes. With a user-friendly interface, secure payment options, and personalized recommendations, ThriveBookstore aims to foster a thriving community of readers and authors alike.',
+      'An online bookstore platform providing book enthusiasts with a convenient shopping experience. Features a vast selection of books across various genres, user-friendly interface, secure payment options, and personalized recommendations.',
     tools: [
       'C#',
-      'SQL SERVER',
+      'SQL Server',
       'Entity Framework',
-      '.Net Web API',
-      'MVC architecture',
-      'Swagger',
+      '.NET Web API',
       'Identity',
     ],
-    is_public: false,
-  },
-  {
-    name: 'Inmates Management System',
-    website: 'https://fox-river.vercel.app/',
-    github: 'https://github.com/Gbohunmifrancis/Fox-River',
-    description:
-      'The Correctional Facility Management System is a comprehensive software solution designed to streamline the management of inmates within correctional facilities. The system provides a centralized platform for correctional staff to efficiently track inmate information, monitor activities, and ensure the safety and security of the facility. By automating manual processes and integrating key functionalities, the system enhances operational efficiency, improves inmate supervision, and facilitates effective communication among staff members.',
-    tools: [
-      'Blazor Web Assembly',
-      'Entity Framework',
-      'SQL SERVER',
-      'C#',
-      '.Net Web API'
-    ],
-    is_public: false,
-  },
-  {
-    name: 'MVC Movie App',
-    website: 'https://github.com/Gbohunmifrancis/Movie-App',
-    github: 'https://github.com/Gbohunmifrancis/Movie-App',
-    description:
-      'I built my first Vue application—a simple app to check available movies from the IMDB website. Users can easily browse and explore a wide range of films with this user-friendly app.',
-    tools: ['Vue', 'Javascript', 'APIs', 'SCSS'],
     is_public: true,
   },
 ]);

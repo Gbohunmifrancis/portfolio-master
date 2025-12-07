@@ -111,7 +111,7 @@
         <div class="grid gap-small md:grid-cols-2">
           <BlogCard
             v-for="relatedPost in relatedPosts"
-            :key="relatedPost._id"
+            :key="relatedPost.id"
             :post="relatedPost"
             @click="navigateToPost(relatedPost.slug)"
           />
@@ -196,7 +196,7 @@ const loadRelatedPosts = async () => {
     
     // Filter out the current post
     relatedPosts.value = response.posts.filter(p => 
-      p._id !== post.value!._id && p.slug !== post.value!.slug
+      p.id !== post.value!.id && p.slug !== post.value!.slug
     ).slice(0, 3);
   } catch (err) {
     console.error('Error loading related posts:', err);

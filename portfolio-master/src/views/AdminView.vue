@@ -112,20 +112,12 @@ const stats = ref({
 const loadStats = async () => {
   try {
     // Use the admin endpoint to get all posts including drafts
-    const response = await fetch('http://localhost:5000/api/admin/posts?limit=1000', {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
-      }
-    })
+    const response = await blogApi.getAdminPosts({ limit: 1000 })
+    const allPosts = response.posts
     
-    if (response.ok) {
-      const data = await response.json()
-      const allPosts = data.posts
-      
-      stats.value.totalPosts = allPosts.length
-      stats.value.publishedPosts = allPosts.filter((post: any) => post.published).length
-      stats.value.draftPosts = allPosts.filter((post: any) => !post.published).length
-    }
+    stats.value.totalPosts = allPosts.length
+    stats.value.publishedPosts = allPosts.filter((post: any) => post.published).length
+    stats.value.draftPosts = allPosts.filter((post: any) => !post.published).length
   } catch (error) {
     console.error('Error loading stats:', error)
   }

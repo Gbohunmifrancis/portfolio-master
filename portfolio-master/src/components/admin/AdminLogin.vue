@@ -117,9 +117,8 @@ const handleLogin = async () => {
   try {
     const response = await authApi.login(credentials.value)
     
-    // Store token in localStorage
-    localStorage.setItem('adminToken', response.token)
-    localStorage.setItem('adminUser', JSON.stringify(response.admin))
+    // Store token in localStorage using authApi helper
+    authApi.storeAuthData(response.token, response.admin)
     
     // Redirect to admin panel
     router.push('/admin')

@@ -80,7 +80,7 @@
       <div class="grid gap-small md:grid-cols-2 lg:grid-cols-3">
         <BlogCard
           v-for="post in paginatedPosts"
-          :key="post._id || post.slug"
+          :key="post.id || post.slug"
           :post="post"
           @click="navigateToPost(post.slug)"
         />
