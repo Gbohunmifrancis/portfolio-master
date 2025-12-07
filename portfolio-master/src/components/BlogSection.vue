@@ -2,13 +2,12 @@
   <div class="mt-[10rem] flex flex-col" id="blog">
     <SectionTitle>Latest Blog Posts</SectionTitle>
     
-    <!-- Featured Posts Section -->
     <div class="mb-medium" v-if="featuredPosts.length > 0">
       <h2 class="mb-small text-small text-brand-400">Featured Posts</h2>
       <div class="grid gap-small md:grid-cols-2">
         <BlogCard
           v-for="post in featuredPosts.slice(0, 2)"
-          :key="post._id"
+          :key="post.id"
           :post="post"
           :featured="true"
           @click="navigateToPost(post.slug)"
@@ -16,9 +15,7 @@
       </div>
     </div>
 
-    <!-- Filter and Search -->
     <div class="mb-small flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-      <!-- Category Filter -->
       <div class="flex flex-wrap gap-2">
         <button
           v-for="category in categories"
@@ -35,7 +32,6 @@
         </button>
       </div>
 
-      <!-- Search -->
       <div class="relative">
         <input
           v-model="searchQuery"
@@ -47,17 +43,15 @@
       </div>
     </div>
 
-    <!-- Blog Posts Grid -->
     <div class="grid gap-small md:grid-cols-2 lg:grid-cols-3">
       <BlogCard
         v-for="post in filteredPosts"
-        :key="post._id"
+        :key="post.id"
         :post="post"
         @click="navigateToPost(post.slug)"
       />
     </div>
 
-    <!-- No Posts Message -->
     <div v-if="filteredPosts.length === 0" class="py-medium text-center">
       <p class="text-dark-300">No posts found matching your criteria.</p>
       <button
@@ -68,7 +62,6 @@
       </button>
     </div>
 
-    <!-- View All Posts Button -->
     <div class="mt-medium text-center">
       <ButtonComponent 
         @click="navigateToBlog"
@@ -124,9 +117,11 @@ const loadPosts = async () => {
     const response = await blogApi.getPosts({ limit: 6 });
     posts.value = response.posts;
     
-    // Get featured posts
-    const featuredResponse = await blogApi.getFeaturedPosts();
-    featuredPosts.value = featuredResponse;
+    // Fix: Using the first few posts as featured since getFeaturedPosts 
+    // is not currently available in the API service.
+    if (posts.value.length > 0) {
+      featuredPosts.value = posts.value.slice(0, 2);
+    }
   } catch (err) {
     console.error('Error loading posts:', err);
   }
