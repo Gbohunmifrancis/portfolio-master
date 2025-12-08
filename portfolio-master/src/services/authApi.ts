@@ -35,8 +35,11 @@ const handleAuthError = (error: AxiosError) => {
   if (error.response?.status === 401) {
     localStorage.removeItem('token');
     localStorage.removeItem('adminUser');
-    if (window.location.pathname !== '/admin/login') {
-      window.location.href = '/admin/login';
+    // Redirect to appropriate login page based on current path
+    const isBlogAdmin = window.location.pathname.startsWith('/blog/admin');
+    const loginPath = isBlogAdmin ? '/blog/admin/login' : '/admin/login';
+    if (window.location.pathname !== loginPath) {
+      window.location.href = loginPath;
     }
   }
   return Promise.reject(error);
@@ -135,7 +138,15 @@ export const authApi = {
   logout: (): void => {
     localStorage.removeItem('token');
     localStorage.removeItem('adminUser');
-    window.location.href = '/admin/login';
+  },
+
+  /**
+   * Logout and redirect to specific login page
+   */
+  logoutAndRedirect: (loginPath: string = '/admin/login'): void => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('adminUser');
+    window.location.href = loginPath;
   },
 
   /**

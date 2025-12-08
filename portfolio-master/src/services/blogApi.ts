@@ -50,6 +50,7 @@ export interface BlogPost {
   image: string;          // Featured image URL
   readTime: number;       // Estimated read time in minutes
   published: boolean;
+  authorUsername?: string; // Author username
   createdAt: string;      // ISO date string
   updatedAt: string;      // ISO date string
 }
@@ -109,6 +110,10 @@ export const handleApiError = (error: unknown): string => {
       return data?.error || 
              `Server error: ${error.response.status}`;
     } else if (error.request) {
+      // Check if it's a CORS error
+      if (error.message?.includes('Network Error') || error.code === 'ERR_NETWORK') {
+        return 'Unable to connect to server. CORS issue or server is offline.';
+      }
       return 'Unable to connect to server. Please check if the API is running.';
     }
   }
