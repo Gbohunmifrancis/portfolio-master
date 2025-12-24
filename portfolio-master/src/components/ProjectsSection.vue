@@ -83,7 +83,7 @@ const projects = ref<ProjectInterface[]>([
   },
   {
     name: 'GlazionStudio Pottery AI',
-    website: 'https://github.com/Gbohunmifrancis/GlazionStudio',
+    website: 'https://glazion-studio.vercel.app/login',
     github: 'https://github.com/Gbohunmifrancis/GlazionStudio',
     description:
       'An advanced AI-powered pottery knowledge API utilizing vector embeddings and RAG architecture, achieving intelligent query processing with 70%+ relevance threshold through OpenAI embeddings and Pinecone vector database integration. Features multi-modal AI combining text-based expertise with image analysis capabilities using OpenAI Vision API and DALL-E integration.',
@@ -115,7 +115,7 @@ const projects = ref<ProjectInterface[]>([
   },
   {
     name: 'My Portfolio',
-    website: 'https://francisgbohunmi.tech',
+    website: 'https://gbohunmi.dev',
     github: 'https://github.com/Gbohunmifrancis/portfolio-master/',
     description:
       'A personal portfolio website showcasing my expertise in backend development and web technologies. Built with modern frontend technologies to create an interactive and visually appealing user interface, featuring a blog system with admin panel.',
