@@ -84,7 +84,7 @@ import { BsCalendar, BsClock, BsStar } from '@kalimahapps/vue-icons/bs';
 
 // Define the BlogPost interface locally
 interface BlogPost {
-  _id?: string;
+  id?: string;
   title: string;
   slug: string;
   excerpt: string;

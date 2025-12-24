@@ -1,8 +1,7 @@
 <template>
-  <div class="w-full">
+  <div class="w-full px-4 py-8">
     <!-- Header Section -->
-    <div class="mb-medium">
-      <div class="flex justify-between items-center mb-4">
+    <div class="mb-medium max-w-7xl mx-auto">\n      <div class="flex justify-between items-center mb-4">
         <div>
           <h1 class="text-medium text-brand mb-2">Blog</h1>
           <p class="text-dark-200 text-normal font-[300]">
@@ -10,16 +9,19 @@
           </p>
         </div>
         <router-link 
-          to="/blog/admin" 
-          class="bg-brand hover:bg-brand-600 text-dark-900 px-4 py-2 rounded-lg font-semibold transition-colors text-sm"
+          to="/" 
+          class="text-dark-300 hover:text-brand px-4 py-2 rounded-lg font-medium transition-colors text-sm flex items-center gap-2"
         >
-          Admin Panel
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Back to Home
         </router-link>
       </div>
     </div>
 
     <!-- Search and Filter Section -->
-    <div class="mb-small flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <div class="mb-small flex flex-col gap-4 md:flex-row md:items-center md:justify-between max-w-7xl mx-auto">
       <!-- Category Filter -->
       <div class="flex flex-wrap gap-2">
         <button
@@ -70,17 +72,17 @@
     <!-- Content -->
     <template v-else>
       <!-- Results Info -->
-      <div class="mb-small text-sm text-dark-300">
+      <div class="mb-small text-sm text-dark-300 max-w-7xl mx-auto">
         Showing {{ filteredPosts.length }} posts
         <span v-if="searchQuery">for "{{ searchQuery }}"</span>
         <span v-if="selectedCategory !== 'All'">in {{ selectedCategory }}</span>
       </div>
 
       <!-- Blog Posts Grid -->
-      <div class="grid gap-small md:grid-cols-2 lg:grid-cols-3">
+      <div class="grid gap-small md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
         <BlogCard
           v-for="post in paginatedPosts"
-          :key="post._id || post.slug"
+          :key="post.id || post.slug"
           :post="post"
           @click="navigateToPost(post.slug)"
         />
@@ -88,7 +90,7 @@
     </template>
 
     <!-- No Posts Message -->
-    <div v-if="filteredPosts.length === 0" class="py-medium text-center">
+    <div v-if="filteredPosts.length === 0" class="py-medium text-center max-w-7xl mx-auto">
       <div class="mx-auto max-w-md">
         <BsSearch class="mx-auto mb-4 h-16 w-16 text-dark-600" />
         <h3 class="mb-2 text-normal text-white">No posts found</h3>
@@ -107,7 +109,7 @@
     <!-- Pagination -->
     <div 
       v-if="totalPages > 1" 
-      class="mt-medium flex items-center justify-center gap-2"
+      class="mt-medium flex items-center justify-center gap-2 max-w-7xl mx-auto"
     >
       <button
         @click="currentPage = currentPage - 1"

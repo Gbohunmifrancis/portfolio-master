@@ -17,7 +17,7 @@
         <div class="space-y-4">
           <div 
             v-for="post in blogPosts" 
-            :key="post._id"
+            :key="post.id"
             class="bg-dark-700 p-4 rounded-lg flex justify-between items-center"
           >
             <div>
@@ -33,7 +33,7 @@
                 Edit
               </button>
               <button
-                @click="deletePost(post._id!)"
+                @click="deletePost(post.id)"
                 class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded text-sm transition-colors"
               >
                 Delete
@@ -266,7 +266,7 @@ import { blogApi, type BlogPost as ApiBlogPost, handleApiError } from '@/service
 
 // Local interface for form data
 interface BlogPostForm {
-  _id?: string | null;
+  id?: string | null;
   title: string;
   slug: string;
   excerpt: string;
@@ -285,7 +285,7 @@ const blogPosts = ref<ApiBlogPost[]>([])
 const loading = ref(true)
 const error = ref('')
 const currentPost = reactive<BlogPostForm>({
-  _id: null,
+  id: null,
   title: '',
   slug: '',
   excerpt: '',
@@ -369,9 +369,9 @@ const savePost = async () => {
         published: currentPost.published
       })
       blogPosts.value.unshift(newPost)
-    } else if (currentPost._id) {
+    } else if (currentPost.id) {
       // Update existing post
-      const updatedPost = await blogApi.updatePost(currentPost._id, {
+      const updatedPost = await blogApi.updatePost(currentPost.id, {
         title: currentPost.title,
         slug: currentPost.slug,
         excerpt: currentPost.excerpt,
@@ -383,7 +383,7 @@ const savePost = async () => {
         published: currentPost.published
       })
       
-      const index = blogPosts.value.findIndex(post => post._id === currentPost._id)
+      const index = blogPosts.value.findIndex(post => post.id === currentPost.id)
       if (index !== -1) {
         blogPosts.value[index] = updatedPost
       }
@@ -398,7 +398,7 @@ const savePost = async () => {
 
 const editPost = (post: ApiBlogPost) => {
   Object.assign(currentPost, {
-    _id: post._id,
+    id: post.id,
     title: post.title,
     slug: post.slug,
     excerpt: post.excerpt,
@@ -418,7 +418,7 @@ const deletePost = async (id: string) => {
   if (confirm('Are you sure you want to delete this post?')) {
     try {
       await blogApi.deletePost(id)
-      blogPosts.value = blogPosts.value.filter(post => post._id !== id)
+      blogPosts.value = blogPosts.value.filter(post => post.id !== id)
     } catch (err) {
       error.value = handleApiError(err)
       console.error('Error deleting post:', err)
@@ -432,7 +432,7 @@ const closeModal = () => {
   
   // Reset form
   Object.assign(currentPost, {
-    _id: null,
+    id: null,
     title: '',
     slug: '',
     excerpt: '',

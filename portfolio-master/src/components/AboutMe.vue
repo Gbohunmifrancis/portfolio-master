@@ -41,35 +41,18 @@ I thrive in collaborative environments where innovative ideas are transformed in
 <script setup lang="ts">
 import { shallowRef, ref } from 'vue';
 import {
-  DeHtml5Original,
-  DeCss3Original,
   DeJavascriptOriginal,
-  DeTailwindcssPlain,
-  DeVuejsOriginal,
-  DeReactOriginal,
-  DeSassOriginal,
-  DeNuxtjsOriginal,
-  DeTypescriptOriginal,
-  DeNodejsOriginal,
-  SiExpress,
   DeMongodbOriginal,
-  DeKubernetesOriginal,
-  DeAspnetOriginal,
-  DeNetcoreOriginal,
-  DeAzureOriginal,
   DeDockerOriginal,
-
+  DePythonOriginal,
   DeCsharpOriginal,
-  VsFileTypeFirebase,
-  DeVisualstudioOriginal,
-  DeFigmaOriginal,
-  
-  DeVuetifyOriginal,
   AkGithubFill,
   DeGitOriginal,
-  
+  DeDotnetcoreOriginal,
+  SiMicrosoftsqlserver,
+  SiAmazonaws,
+  SiVisualstudiocode,
 } from '@kalimahapps/vue-icons';
-import PiniaIcon from './icons/PiniaIcon.vue';
 
 import SectionTitle from './reusables/SectionTitle.vue';
 import gsap from 'gsap';
@@ -80,81 +63,50 @@ const stagger = (el: HTMLElement) =>
     y: -100,
   });
 const skills = shallowRef([
-{
+  {
     skill: 'C#',
-
     icon: DeCsharpOriginal,
   },
-  
   {
-    skill: 'Javascript',
-    icon: DeJavascriptOriginal,
+    skill: '.NET Core',
+    icon: DeDotnetcoreOriginal,
+  },
+  {
+    skill: 'Python',
+    icon: DePythonOriginal,
+  },
+  {
+    skill: 'SQL Server',
+    icon: SiMicrosoftsqlserver,
+  },
+  {
+    skill: 'AWS',
+    icon: SiAmazonaws,
   },
   {
     skill: 'Docker',
     icon: DeDockerOriginal,
   },
-  
-
   {
-    skill: 'Azure',
-    icon: DeAzureOriginal,
-  },
- 
-  // {
-  //   skill: 'Express JS',
-
-  //   icon: SiExpress,
-  // },
-  // {
-  //   skill: 'Socket IO',
-
-  //   icon: CoBrandSocketIo,
-  // },
-  {
-    skill: 'Mongo Db',
-
+    skill: 'MongoDB',
     icon: DeMongodbOriginal,
   },
   {
-    skill: 'Firebase',
-    icon: VsFileTypeFirebase,
+    skill: 'Javascript',
+    icon: DeJavascriptOriginal,
   },
-  // {
-  //   skill: 'React',
-  //   icon: DeReactOriginal,
-  // },
-  {
-    skill: 'SCSS',
-    icon: DeSassOriginal,
-  },
- 
- 
-
-  {
-    skill: 'HTML5',
-    icon: DeHtml5Original,
-  },
-  {
-    skill: 'CSS3',
-    icon: DeCss3Original,
-  },
-  {
-    skill: 'Figma',
-    icon: DeFigmaOriginal,
-  },
-
-  
   {
     skill: 'Git',
     icon: DeGitOriginal,
   },
   {
     skill: 'Github',
-
     icon: AkGithubFill,
   },
-  
+  {
+    skill: 'VS Code',
+    icon: SiVisualstudiocode,
+  },
 ]);
 </script>
 

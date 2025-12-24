@@ -53,43 +53,38 @@ import { ref } from 'vue';
 import ButtonComponent from '@/components/reusables/ButtonComponent.vue';
 import SectionTitle from './reusables/SectionTitle.vue';
 const experiences = ref([
-    
   {
-    company: ['Kuda Microfinance, Lagos'],
-    type: 'Internship',
-    role: 'Customer Experience Specialist',
-    duration: 'May 2025 - Present',
+    company: ['Model Carbon Ltd'],
+    type: 'Contract',
+    role: 'Backend Developer / QA Tester',
+    duration: 'December 2025 - Present',
     description:
-      ' Managed customer inquiries via email and chat, delivering prompt and professional responses to enhance customer satisfaction and retention',
+      'Building, testing, and maintaining backend services, APIs, and microservices for the Converge ERP System. Following agreed architecture standards, participating in code reviews, debugging, and performance optimization. Performing manual testing and validation of features before release, reporting bugs, and working with developers to ensure smooth integration.',
   },
-  
+  {
+    company: ['KUDA MFB, Lagos'],
+    type: 'Internship',
+    role: 'Backend Developer',
+    duration: 'June 2025 - September 2025',
+    description:
+      'Collaborated with a cross-functional team of senior experts to define, develop, and launch a major feature suite aimed at increasing user value and engagement. Played a key role in implementing three user engagement features (premium subscription, referral rewards, and a loyalty system) using ASP.NET Core and SQL Server. Assisted in gathering user requirements and translating business objectives into technical specifications.',
+  },
   {
     company: ['X3 Lab, Akure'],
     type: 'Contract',
-    role: 'dotnet developer',
-    duration: 'January 2025 - July 2025',
+    role: '.NET Developer',
+    duration: 'January 2025 - June 2025',
     description:
-      'Assisted in researching, developing, and building the backend of an edutech platform targeted at universities, enabling students to choose courses, manage results, and track outstanding courses.',
-  },
-
-{
-    company: ['Akure Tech Hub, Akure'],
-    type: 'Bootcamp',
-    role: 'AWS solutions Architect',
-    duration: 'June 2024 - August 2024',
-    description:
-      'I gained Hands-on experience working with Amazon web services, Learnt the intricaces of Elastic cloud computing(EC2),Deployed static sites on S3 buckets and worked with relational Database Services. It was rounded off with a web-based project that triggers a lamda function after detecting the nearest Hospital based on the clients location and IP address.',
+      'Contributed to the development of a scalable backend system for a university-focused edutech platform using the .NET framework. Engineered 20+ key API endpoints and core business logic using ASP.NET Core Web API to power critical student features, including course registration, result management, and academic progress tracking for over 5,000 users.',
   },
   {
-    company: ['GFAMS CONSULTING, Lagos'],
-    type: 'Contract',
-    role: 'Backend Developer',
-    duration: 'January 2024 - July 2024',
+    company: ['Akure Tech Hub, Akure'],
+    type: 'Bootcamp',
+    role: 'AWS Solutions Architect',
+    duration: 'June 2024 - July 2024',
     description:
-      'I collaborated with cross-platform team to push a B2B Sales Management System. It is a web-based application designed to streamline sales processes, manage customer inquiries, and generate quotations for potential customers. The system facilitates efficient communication between sales agents and customers, tracks interactions, and provides insights to drive sales performance.',
-  }
-
-  
+      'Gained intensive, hands-on experience in core AWS services, including provisioning EC2 instances, deploying static websites with S3, and managing Relational Database Services (RDS). Developed and deployed a serverless web application as a capstone project, utilizing AWS Lambda to trigger a function that identified the nearest hospital based on a client\'s IP address.',
+  },
 ]);
 </script>
 

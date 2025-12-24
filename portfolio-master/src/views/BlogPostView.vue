@@ -1,7 +1,7 @@
 <template>
-  <div class="w-full" v-if="post">
+  <div class="w-full px-4 py-8" v-if="post">
     <!-- Back Button -->
-    <div class="mb-small">
+    <div class="mb-small max-w-4xl mx-auto">
       <button
         @click="goBack"
         class="flex items-center gap-2 text-brand-700 hover:text-brand"
@@ -26,36 +26,42 @@
       </div>
 
       <!-- Article Meta -->
-      <div class="mb-small">
-        <div class="mb-2">
-          <span class="rounded-full bg-brand-900 px-3 py-1 text-sm text-brand-300">
+      <div class="mb-8">
+        <div class="mb-4 flex flex-wrap items-center gap-3">
+          <span class="rounded-md bg-dark-800 px-3 py-1.5 text-xs font-medium text-brand uppercase tracking-wider">
             {{ post.category }}
           </span>
+          <div class="flex items-center gap-3 text-sm text-gray-400">
+            <div class="flex items-center gap-1.5">
+              <BsCalendar class="h-3.5 w-3.5" />
+              <span>{{ formattedDate }}</span>
+            </div>
+            <span class="text-gray-600">•</span>
+            <div class="flex items-center gap-1.5">
+              <BsClock class="h-3.5 w-3.5" />
+              <span>{{ post.readTime }} min read</span>
+            </div>
+          </div>
         </div>
         
-        <h1 class="mb-4 text-medium text-white leading-tight">
+        <h1 class="mb-0 text-4xl md:text-5xl font-semibold text-white leading-tight tracking-tight" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;">
           {{ post.title }}
         </h1>
-        
-        <div class="flex flex-wrap items-center gap-4 text-sm text-dark-300">
+      </div>
+
+      <!-- Author Info -->
+      <div class="mb-8 pb-8 border-b border-dark-700">
+        <div class="flex flex-wrap items-center gap-4 text-sm text-gray-400">
           <div class="flex items-center gap-2">
             <BsPerson class="h-4 w-4" />
-            <span>Admin</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <BsCalendar class="h-4 w-4" />
-            <span>{{ formattedDate }}</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <BsClock class="h-4 w-4" />
-            <span>{{ post.readTime }} min read</span>
+            <span>{{ post.authorUsername || 'Admin' }}</span>
           </div>
         </div>
       </div>
 
       <!-- Article Content -->
       <div 
-        class="prose prose-lg max-w-none prose-invert prose-brand"
+        class="blog-content prose prose-lg max-w-none prose-invert"
         v-html="formattedContent"
       ></div>
 
@@ -111,7 +117,7 @@
         <div class="grid gap-small md:grid-cols-2">
           <BlogCard
             v-for="relatedPost in relatedPosts"
-            :key="relatedPost._id"
+            :key="relatedPost.id"
             :post="relatedPost"
             @click="navigateToPost(relatedPost.slug)"
           />
@@ -196,7 +202,7 @@ const loadRelatedPosts = async () => {
     
     // Filter out the current post
     relatedPosts.value = response.posts.filter(p => 
-      p._id !== post.value!._id && p.slug !== post.value!.slug
+      p.id !== post.value!.id && p.slug !== post.value!.slug
     ).slice(0, 3);
   } catch (err) {
     console.error('Error loading related posts:', err);
@@ -268,8 +274,24 @@ onMounted(async () => {
 
 <style scoped>
 /* Custom prose styles for dark theme */
+.blog-content {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
 :deep(.prose) {
-  color: #e5e5e5;
+  color: #d1d5db;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  font-weight: 400;
+}
+
+:deep(.prose p) {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.75;
+  letter-spacing: 0.012em;
+  color: #d1d5db;
+  font-size: 1.0625rem;
 }
 
 :deep(.prose h1),
@@ -279,40 +301,69 @@ onMounted(async () => {
 :deep(.prose h5),
 :deep(.prose h6) {
   color: #ffffff;
-  border-bottom: 1px solid #404040;
-  padding-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  margin-top: 2.5rem;
   margin-bottom: 1rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+:deep(.prose h1) {
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
+:deep(.prose h2) {
+  font-size: 1.875rem;
+  font-weight: 700;
+  padding-top: 1rem;
+  border-top: 1px solid #2d2d2d;
+}
+
+:deep(.prose h3) {
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 :deep(.prose code) {
-  background-color: #2a2a2a;
-  color: #00e2dc;
-  padding: 0.125rem 0.25rem;
+  background-color: rgba(110, 118, 129, 0.15);
+  color: #e96ba8;
+  padding: 0.2em 0.4em;
   border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-weight: 400;
 }
 
 :deep(.prose pre) {
   background-color: #1a1a1a;
   border: 1px solid #404040;
   border-radius: 0.5rem;
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+  overflow-x: auto;
 }
 
 :deep(.prose pre code) {
   background-color: transparent;
   color: #e5e5e5;
+  padding: 0;
 }
 
 :deep(.prose blockquote) {
   border-left: 4px solid #00e2dc;
   background-color: #1a1a1a;
-  margin: 1rem 0;
-  padding: 1rem;
+  margin: 1.5rem 0;
+  padding: 1.25rem;
   border-radius: 0 0.5rem 0.5rem 0;
+  font-style: italic;
 }
 
 :deep(.prose a) {
   color: #00e2dc;
   text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 :deep(.prose a:hover) {
@@ -322,9 +373,39 @@ onMounted(async () => {
 :deep(.prose ul),
 :deep(.prose ol) {
   color: #e5e5e5;
+  margin: 1.5rem 0;
+  padding-left: 1.75rem;
 }
 
 :deep(.prose li) {
-  margin: 0.5rem 0;
+  margin: 0.75rem 0;
+  line-height: 1.75;
+}
+
+:deep(.prose strong) {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+:deep(.prose em) {
+  color: #d1d5db;
+  font-style: italic;
+}
+
+:deep(.prose img) {
+  border-radius: 0.5rem;
+  margin: 2rem 0;
+}
+
+:deep(.prose hr) {
+  border-color: #2d2d2d;
+  margin: 2.5rem 0;
+}
+
+/* First paragraph styling */
+:deep(.prose > p:first-of-type) {
+  font-size: 1.125rem;
+  color: #e5e7eb;
+  margin-top: 0;
 }
 </style>

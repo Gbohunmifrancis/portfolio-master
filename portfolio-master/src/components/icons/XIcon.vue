@@ -3,8 +3,8 @@
     xmlns="http://www.w3.org/2000/svg"
     x="0px"
     y="0px"
-    width="fit"
-    height="fit"
+    width="100%"
+    height="100%"
     viewBox="0,0,256,256"
     class="fill-brand p-3 hover:fill-brand-900"
   >
