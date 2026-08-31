@@ -1,323 +1,47 @@
-export interface BlogPost {
+export interface LocalBlogPost {
   id: string;
+  slug: string;
   title: string;
   excerpt: string;
   content: string;
-  author: string;
-  publishedAt: string;
-  updatedAt?: string;
-  tags: string[];
   category: string;
+  tags: string[];
   readTime: number;
-  featured: boolean;
-  imageUrl?: string;
-  slug: string;
+  publishedAt: string;
+  author: string;
+  featured?: boolean;
 }
 
-export const blogPosts: BlogPost[] = [
+export const blogPosts: LocalBlogPost[] = [
   {
-    id: '1',
-    slug: 'getting-started-with-vue-3',
-    title: 'Getting Started with Vue 3: A Modern Developer\'s Guide',
-    excerpt: 'Explore the latest features and improvements in Vue 3, including the Composition API, better TypeScript support, and performance enhancements.',
-    content: `
-# Getting Started with Vue 3: A Modern Developer's Guide
-
-Vue 3 has revolutionized the way we build modern web applications. With its improved performance, better TypeScript support, and the powerful Composition API, it's never been a better time to dive into Vue development.
-
-## What's New in Vue 3?
-
-### Composition API
-The Composition API provides a more flexible way to organize component logic. Instead of scattering related logic across different options, you can group it together:
-
-\`\`\`javascript
-import { ref, computed, onMounted } from 'vue'
-
-export default {
-  setup() {
-    const count = ref(0)
-    const doubledCount = computed(() => count.value * 2)
-    
-    onMounted(() => {
-      console.log('Component mounted!')
-    })
-    
-    return {
-      count,
-      doubledCount
-    }
-  }
-}
-\`\`\`
-
-### Better Performance
-Vue 3 is significantly faster than Vue 2, with improvements in:
-- Bundle size (tree-shakable)
-- Runtime performance
-- Memory usage
-
-### Enhanced TypeScript Support
-Vue 3 was written in TypeScript from the ground up, providing excellent IDE support and type safety.
-
-## Getting Started
-
-To create a new Vue 3 project:
-
-\`\`\`bash
-npm create vue@latest my-project
-cd my-project
-npm install
-npm run dev
-\`\`\`
-
-## Conclusion
-
-Vue 3 represents a significant step forward for the Vue ecosystem. Whether you're building a simple website or a complex application, Vue 3 provides the tools and performance you need to succeed.
-    `,
-    author: 'Francis Gbohunmi',
-    publishedAt: '2024-01-15',
-    tags: ['Vue', 'JavaScript', 'Frontend', 'Development'],
-    category: 'Frontend Development',
-    readTime: 5,
-    featured: true,
-    imageUrl: 'https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=800&q=80'
+    id: 'notefusion', slug: 'notefusion-from-audio-to-tonic-solfa',
+    title: 'NoteFusion: from audio to Tonic Solfa without pretending the hard parts are easy',
+    excerpt: 'How the transcription pipeline separates signal processing, musical interpretation, and notation so the product can explain what it knows.',
+    category: 'Music intelligence', tags: ['Python', '.NET', 'ML pipeline', 'Notation'], readTime: 12, publishedAt: '2026-08-20', author: 'Francis Gbohunmi', featured: true,
+    content: `<h2>The problem was not just pitch detection</h2><p>NoteFusion takes a live or recorded melody and returns movable-do Tonic Solfa, staff notation, MIDI, MusicXML, and an audio preview. A pitch detector can identify frequencies, but that is only the first uncertain step. The product also has to decide where notes start and end, estimate tempo, infer a key, quantize timing, spell accidentals correctly, and map every note relative to doh.</p><p>I split those concerns because one large prediction would be difficult to test and nearly impossible to explain when it failed. The mobile client talks only to the .NET 10 API. The API owns users, recordings, job state, billing, and durable results. An internal FastAPI worker runs Basic Pitch through ONNX on CPU and returns a structured transcription. Clients never call the worker directly.</p><pre><code>Expo client -> .NET API -> Python job queue -> transcription pipeline | -> Postgres result + processing state</code></pre><h2>Failure: short clips produced confident-looking wrong solfa</h2><p>The most damaging early failure was not a missed note. It was a wrong key. A short Happy Birthday clip in G was identified as D major with 0.68 certainty. The detected pitches were usable, but movable-do relabelled every note from the wrong tonic. Visually polished output made that mistake look more trustworthy than it was.</p><p>The resolution was architectural and product-facing. Key detection now uses a vote across several pitch profiles, with cadence information used when the leading candidates are close. More importantly, clips with too few pitched events have their key confidence capped. The result screen can then ask the musician to confirm or edit the key. A manual key always wins, and changing it only relabels the existing notes. It does not rerun inference.</p><pre><code>pitch events -> key candidate -> doh pitch class -> solfa labels | editable override</code></pre><h2>Failure: one note became several fragments</h2><p>Basic Pitch sometimes returned adjacent same-pitch fragments for a single held note. Those extra onsets hurt precision and produced noisy solfa. I moved duration filtering ahead of amplitude analysis, derived the amplitude floor from each clip instead of using one fixed threshold, and merged adjacent same-pitch events before resolving overlaps. Very short melody fragments are filtered because they add more post-processing noise than musical information for this use case.</p><p>Pitch refinement is also selective. The pipeline can use pyin to correct octave errors, but skips that work for clips where it would be too expensive or unreliable. When refinement did not run, confidence originally looked artificially low because missing pyin evidence was treated as zero evidence. The fix was to compute confidence from the stages that actually ran.</p><h2>Failure: notation and solfa disagreed</h2><p>Generating the staff and solfa through separate paths created subtle drift. Quantization could move a note on the staff while the text view still used the raw timing. The current pipeline builds one intermediate note representation containing MIDI pitch, beat offset, duration, degree, solfa syllable, octave mark, and confidence. Staff notation, solfa lines, MIDI, and the preview are generated from that shared representation.</p><p>Accidental spelling also needed explicit repair. Notes created from bare MIDI values are key-blind, and music21 represents flat keys differently from the C# parser. The pipeline now respells notes against the detected key, supplies the key signature when generating accidentals, and normalizes names such as <code>B- major</code> to <code>Bb major</code>. That removed incorrect naturals and prevented re-key requests from failing with validation errors.</p><h2>Failure: jobs disappeared during polling</h2><p>The MVP worker keeps job state in process memory. Running several web worker processes meant the upload could land in one process while the next status poll reached another process that had never seen the job. It looked like the transcription had vanished.</p><p>The immediate resolution was to run a single worker process and serialize CPU inference with a bounded thread executor. Concurrent uploads queue instead of competing for one core. Finished jobs expire after a TTL, correlation IDs connect API and worker logs, and the uploaded audio is deleted in a <code>finally</code> block on every terminal path. A durable queue such as Redis remains the scale-up path, but the current deployment now matches the actual guarantees of the in-memory design.</p><h2>Honest failure is part of the output</h2><p>Near-silent or very noisy audio should not become plausible-looking notation. The worker raises a low-confidence result with a useful recording instruction, and that message travels through the API to the mobile result screen. Unit tests cover the C# solfa engine and API contracts, while pytest covers queue expiry, rendering, key parsing, and transcription helpers. Real phone recordings are still the final accuracy gate, so the interface keeps key and confidence visible instead of hiding uncertainty.</p><h2>Tradeoffs I kept visible</h2><ul><li>The in-process queue is simple and inexpensive, but deliberately limited to one worker process.</li><li>Raw PCM made the first end-to-end path easy to debug, but audio compression is required for a better mobile data budget.</li><li>Automatic key detection speeds up the happy path, but a musician must be able to override doh without paying for another transcription.</li><li>A fixed 4/4 meter is more honest than a meter detector that has not earned its complexity on the measured corpus.</li></ul><p>The central lesson was that music software cannot hide every ambiguity behind one confidence score. The system became more dependable when each transformation could be inspected, corrected, and tested independently.</p>`
   },
   {
-    id: '2',
-    slug: 'typescript-best-practices',
-    title: 'TypeScript Best Practices for Large Scale Applications',
-    excerpt: 'Learn essential TypeScript patterns and practices that will help you build maintainable and scalable applications.',
-    content: `
-# TypeScript Best Practices for Large Scale Applications
-
-TypeScript has become an essential tool for building robust JavaScript applications. Here are some best practices I've learned while working on large-scale projects.
-
-## Type Safety First
-
-Always prefer strict type checking:
-
-\`\`\`typescript
-// tsconfig.json
-{
-  "compilerOptions": {
-    "strict": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true
-  }
-}
-\`\`\`
-
-## Use Interfaces and Types Effectively
-
-Create clear interfaces for your data structures:
-
-\`\`\`typescript
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  createdAt: Date;
-}
-
-type UserStatus = 'active' | 'inactive' | 'pending';
-\`\`\`
-
-## Generic Types for Reusability
-
-Leverage generics for flexible, reusable code:
-
-\`\`\`typescript
-interface ApiResponse<T> {
-  data: T;
-  success: boolean;
-  message: string;
-}
-
-function fetchData<T>(url: string): Promise<ApiResponse<T>> {
-  // Implementation
-}
-\`\`\`
-
-## Conclusion
-
-Following these practices will lead to more maintainable and bug-free TypeScript applications. The initial investment in proper typing pays dividends in the long run.
-    `,
-    author: 'Francis Gbohunmi',
-    publishedAt: '2024-02-10',
-    tags: ['TypeScript', 'JavaScript', 'Best Practices', 'Development'],
-    category: 'Programming',
-    readTime: 8,
-    featured: true
+    id: 'recchx', slug: 'recchx-building-a-safety-network-that-works-offline',
+    title: 'Recchx: building a safety network that still works when the network does not',
+    excerpt: 'The technical choices behind circles, live location, safe-arrival timers, covert SOS, and an offline queue that prioritizes the urgent path.',
+    category: 'Personal safety', tags: ['React Native', 'SignalR', 'Offline-first', 'Security'], readTime: 11, publishedAt: '2026-08-15', author: 'Francis Gbohunmi',
+    content: `<h2>Safety is a delivery problem</h2><p>Recchx combines trusted circles, live location, safe-arrival timers, emergency contacts, and covert SOS alerts. The difficult requirement is temporal: an event triggered during poor connectivity still has to reach the server, and an urgent SOS must not wait behind a backlog of ordinary location updates.</p><p>The durable API is built with .NET 8. SignalR distributes live circle changes, but the REST API remains the source of truth. That choice matters because a phone can suspend a socket, move between networks, or reopen after hours offline. Reconnecting should rebuild state from durable data rather than assume an uninterrupted real-time session.</p><h2>Failure: one offline queue treated every write as equally urgent</h2><p>An early offline design risked replaying a long list of location snapshots before an SOS generated later. That ordering is unacceptable for a safety product. I separated deferred SOS events from routine location snapshots and made SOS flushing the first operation on reconnect.</p><p>Location history is bounded so an extended offline period cannot grow storage without limit. Each snapshot includes capture time, battery level, coordinates, and an idempotency key. The backend batch endpoint deduplicates by that key, which makes a retry safe when the client cannot know whether the previous response was lost before or after the server committed the write.</p><pre><code>connectivity restored -> flush SOS -> sync bounded snapshots -> reconnect live updates</code></pre><h2>Failure: retrying everything created permanent loops</h2><p>Network failures and server errors are usually transient. Validation and permission errors are not. Retrying both classes forever wastes battery and can hide a broken client contract. The queue now distinguishes them. A server error or lost connection keeps the item for another attempt. A proven client error is removed or surfaced because the same payload cannot become valid by waiting.</p><p>The API also has idempotency middleware for writes. It stores the result associated with an idempotency key and can replay that response to a repeated request. Concurrent repeats are detected while the first request is still in progress. This closes the gap between client retry behavior and server-side side effects.</p><h2>Failure: the visible SOS flow could expose the user</h2><p>A covert trigger should not suddenly replace the screen with a dramatic emergency confirmation. The SOS endpoint can return an intentionally quiet response while the backend creates the event and starts the alert workflow. Notification dispatch is separated from accepting the event, so the request path remains short and the server can continue escalation work in the background.</p><p>Location permission is checked before triggering. If the phone is offline, the client records the deferred SOS with the most recent available coordinates. When the event reaches the backend, the same durable state drives recipients, resolution, and history rather than relying on a transient push notification.</p><h2>Background location without ignoring the battery</h2><p>Constant maximum-accuracy GPS polling would make the feature self-defeating. Background updates use a battery-aware interval, include the device battery percentage in the snapshot, and respect Ghost Mode before publishing location. Ghost Mode is not a cosmetic switch. It is part of the permission boundary around who can see current movement.</p><p>Safe-arrival timers are server-owned. A phone can extend or resolve a timer, but a background monitor determines when an overdue arrival should move into danger handling. That prevents the alert from depending on the originating app remaining awake.</p><h2>Real-time is an enhancement, not the database</h2><p>SignalR pushes location and circle updates for a responsive map, while REST queries provide the latest durable snapshot after reconnect. Health checks verify that the hub is configured, and the client can rejoin its circle subscriptions after authentication. This separation prevents a temporary socket outage from deleting the user's mental model of who is safe.</p><h2>What I tested around the happy path</h2><ul><li>An SOS created offline is sent before routine snapshots after reconnect.</li><li>Repeated location batches do not create duplicate snapshots.</li><li>A network drop during flush leaves the event available for another attempt.</li><li>Ghost Mode stops background sharing without destroying existing circle membership.</li><li>Safe-arrival escalation is determined by server time, not a mobile timer that may be suspended.</li><li>Circle invitation and location access stay behind role and membership checks.</li></ul><p>The important lesson was to design from the failure path inward. The map and live presence make Recchx feel immediate, but bounded storage, priority queues, idempotent writes, and server-owned escalation are what make it dependable.</p>`
   },
   {
-    id: '3',
-    slug: 'modern-css-techniques',
-    title: 'Modern CSS Techniques Every Developer Should Know',
-    excerpt: 'Discover advanced CSS techniques including Grid, Flexbox, Custom Properties, and modern layout methods.',
-    content: `
-# Modern CSS Techniques Every Developer Should Know
-
-CSS has evolved tremendously in recent years. Let's explore some modern techniques that can transform your web development workflow.
-
-## CSS Grid: The Layout Revolution
-
-CSS Grid provides a powerful way to create complex layouts:
-
-\`\`\`css
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-}
-\`\`\`
-
-## Custom Properties (CSS Variables)
-
-Create maintainable stylesheets with custom properties:
-
-\`\`\`css
-:root {
-  --primary-color: #3498db;
-  --secondary-color: #2ecc71;
-  --spacing-unit: 1rem;
-}
-
-.button {
-  background-color: var(--primary-color);
-  padding: var(--spacing-unit);
-}
-\`\`\`
-
-## Container Queries
-
-Responsive design based on container size:
-
-\`\`\`css
-.card-container {
-  container-type: inline-size;
-}
-
-@container (min-width: 400px) {
-  .card {
-    display: flex;
-    flex-direction: row;
-  }
-}
-\`\`\`
-
-## Conclusion
-
-These modern CSS techniques can significantly improve your development efficiency and create better user experiences. Start incorporating them into your projects today!
-    `,
-    author: 'Francis Gbohunmi',
-    publishedAt: '2024-03-05',
-    tags: ['CSS', 'Frontend', 'Web Development', 'Layout'],
-    category: 'Frontend Development',
-    readTime: 6,
-    featured: false
+    id: '2gether', slug: '2gether-making-private-software-feel-private',
+    title: '2gether: making private software feel private',
+    excerpt: 'A look at invite-only onboarding, partner linking, live presence, cycle tracking, and synchronous games in one focused surface.',
+    category: 'Private connection', tags: ['Next.js', '.NET', 'SignalR', 'Product design'], readTime: 10, publishedAt: '2026-08-10', author: 'Francis Gbohunmi',
+    content: `<h2>A small audience creates strict boundaries</h2><p>2gether is a mobile-first web space for exactly one couple. It combines private messages, cycle tracking, live presence, and synchronous two-player games. There is no public feed and no discovery graph. That narrow scope simplifies the product, but it also raises the cost of an authorization mistake because almost every record belongs to one shared private space.</p><p>The backend is a .NET 10 modular monolith with PostgreSQL. The Next.js client uses REST for durable resources and SignalR for presence, messaging fan-out, and games. Domain rules live in Core and Application layers, while controllers and hubs stay thin.</p><h2>Failure: trusting a client-supplied couple ID</h2><p>Sending <code>coupleId</code> with every request looks convenient, but it gives a modified client an opportunity to ask for another couple's data. The server now derives the couple identity from the authenticated user and the persisted partner relationship. Request payloads describe the action, not the authorization scope.</p><p>Queries and commands apply that scope before loading messages, cycle records, or game sessions. SignalR groups are joined from the same authenticated state, so the socket path cannot bypass the REST path's ownership rules.</p><h2>Partner linking is a state transition, not a URL trick</h2><p>An invite link has several states: created, expired, accepted, already used, or invalid for the current account. Treating it as a simple redirect produced ambiguous onboarding and made repeat taps difficult to reason about. The backend models a partner invite explicitly and validates the transition that creates a couple.</p><pre><code>unlinked user -> active invite -> validated acceptance -> linked couple</code></pre><p>The deep link carries only the invitation reference. Acceptance happens through an authenticated API call. The UI can then show a precise result for an expired or already-claimed invite instead of dropping the user into a partially linked dashboard.</p><h2>Failure: both browsers thought they owned the game</h2><p>A synchronous game quickly diverges if each browser owns its own timer, score, turn, and end state. Network delay can make both players believe it is their turn, and a refresh can erase local progress. I moved authority to the server. The server owns timers, turns, scores, consent state, and the reconnect snapshot.</p><p>Clients send intents such as choosing an answer or requesting the next round. The application validates that intent against the current session, persists the new state, and broadcasts the resulting snapshot. A reconnecting player asks for the latest server state rather than replaying every missed animation.</p><h2>Failure: a socket was treated as durable storage</h2><p>SignalR is useful for immediacy, but a message is not durable just because it was broadcast. Messages are stored through the application layer before fan-out. Cycle entries and profile settings are standard API resources. Presence can be ephemeral, but shared history cannot.</p><p>This split also gives the client a recovery path. After reconnect, REST supplies durable records and the hub restores live subscriptions. A brief disconnection may interrupt an animation, but it does not remove the conversation or alter cycle history.</p><h2>Consent is part of game state</h2><p>Some couple prompts require both players to agree before a round ends or a result is revealed. If consent lives only in a modal, one browser can move on while the other is still deciding. Consent is stored with the server-owned session and included in the reconnect snapshot. The UI reflects that state instead of inventing it locally.</p><h2>Mobile behavior shaped the interface</h2><p>The main experience uses a mobile bottom navigation and promotes short, repeated actions. Desktop adds a sidebar without changing the information model. Fixed-format game boards reserve their dimensions so score changes, long prompts, and loading states do not shift controls under a player's finger.</p><h2>What improved after testing</h2><ul><li>Every couple-owned request is scoped from authenticated server state.</li><li>Expired and replayed invitations return explicit states.</li><li>Game commands are rejected when the user, turn, or session state is wrong.</li><li>Refresh and reconnect rebuild the current game from a server snapshot.</li><li>Durable writes complete before SignalR fan-out.</li><li>Consent and end-game decisions survive a browser refresh.</li></ul><p>The core lesson was that private software feels private when its boundaries are structural. Invite-only copy is not enough. Ownership, server authority, durable state, and explicit transitions have to agree across every route and real-time event.</p>`
   },
   {
-    id: '4',
-    slug: 'full-stack-development-journey',
-    title: 'My Journey as a Full-Stack Developer: Lessons Learned',
-    excerpt: 'Reflections on my path from frontend to full-stack development, including challenges, victories, and key insights.',
-    content: `
-# My Journey as a Full-Stack Developer: Lessons Learned
+    id: 'sbz-farms', slug: 'sbz-farms-turning-farm-operations-into-a-source-of-truth',
+    title: 'SBZ Farms: turning farm operations into a source of truth',
+    excerpt: 'How birds, eggs, feed, sales, payroll, alerts, and audit history become one operational model instead of disconnected spreadsheets.',
+    category: 'Operations systems', tags: ['CQRS', 'PostgreSQL', 'RBAC', 'Offline sync'], readTime: 12, publishedAt: '2026-08-05', author: 'Francis Gbohunmi',
+    content: `<h2>The spreadsheet problem was really a relationship problem</h2><p>SBZ Farms covers bird batches, live counts, egg production, feed stock, medication, health events, sales, expenses, attendance, payroll, alerts, audit history, and backups. Separate forms are easy to build, but the operation only becomes trustworthy when those records agree. A feed issuance must affect stock. Mortality must change the live count. A sale must be traceable to inventory and payment state.</p><p>The backend exposes named operational routes instead of one generic record editor. The mobile client mirrors those modules and uses role-aware navigation. This makes business rules visible at the command boundary and gives audit records meaningful action names.</p><h2>Failure: unreliable connectivity erased completed farm work</h2><p>Farm staff cannot stop recording production because a connection is weak. The mobile client therefore treats SQLite as its offline source of truth. Reference data is pulled into local tables, and every local write is mirrored into an outbox. The interface updates from SQLite immediately and shows whether changes are offline, pending, syncing, or failed.</p><pre><code>local action -> SQLite transaction -> outbox -> push oldest writes -> pull server changes</code></pre><p>Sync runs when connectivity returns and when the app comes to the foreground. A guard prevents overlapping sync passes. Push happens before pull so the server sees the operator's newest work before returning the latest shared state.</p><h2>Failure: child records reached the server before their parents</h2><p>Replaying outbox items in arbitrary order caused dependent writes to fail. For example, a bird batch cannot reference a pen that has not been created yet. The outbox now replays oldest first. On a transient failure it stops the current pass, schedules exponential backoff, and preserves the remaining order.</p><p>A successful response or a <code>409 Conflict</code> removes the item because the client-generated record already exists. Permanent validation, permission, and not-found errors are dead-lettered so one bad record does not block unrelated work. Network failures, timeouts, rate limits, authentication expiry, and server errors remain retryable. After six failed attempts an item is parked for user attention, with a manual retry path in the sync status bar.</p><h2>Failure: reconnecting after hours offline always produced a 401</h2><p>A long offline period is exactly when the access token is most likely to expire. Originally that made the sync engine look broken at the moment it was most needed. The sync fetch wrapper now reads tokens from secure storage, refreshes an expired access token once per run, persists the rotated access and refresh tokens, and retries the original request.</p><p>The once-per-run limit prevents a rejected session from creating an infinite refresh loop. If the refresh token is also invalid, the app can require a real login instead of silently discarding the outbox.</p><h2>Conflict and retry behavior had to be explicit</h2><p>Each outbox entry stores the endpoint, method, serialized body, entity type, attempt count, last error, next attempt time, and status. A client GUID is reused as the outbox ID when the write creates a record, so the same logical operation is updated rather than queued twice. Backoff starts at two seconds and is capped at five minutes.</p><p>After pushing local writes, the client requests <code>/sync/changes</code> using the last server timestamp. The returned bundle is applied to SQLite and the new server time becomes the next cursor. This avoids downloading every farm record on each reconnect while keeping the local read model current.</p><h2>Roles could not be hardcoded into five separate applications</h2><p>The first navigation approach risked duplicating large screen lists for each job title. That becomes brittle as farms create custom roles. The current client reads module access from the authenticated user's token and builds a module-driven navigator. Admin screens remain separate where the workflow truly differs, but ordinary access is controlled by permissions rather than a chain of role-name checks.</p><p>The API remains the final authority. Hiding a payroll screen in navigation is helpful, but it is not authorization. Sensitive commands are role-scoped on the server and written to the audit trail.</p><h2>Security and recovery are operational features</h2><p>Access and refresh tokens use secure storage on native devices. A valid session can still require biometric or password unlock before the application reveals farm data. Notifications cover sales, health events, and operational updates. Admins can create and download CSV backups through dedicated server endpoints, so recovery does not depend on the state of one phone.</p><h2>What the failure UI communicates</h2><ul><li>Offline with no pending work is different from offline with unsent changes.</li><li>A syncing state prevents the operator from wondering whether a tap registered.</li><li>Failed writes are counted and can be retried deliberately.</li><li>Permanent errors are separated from temporary network failures.</li><li>Pending work survives app restarts because it lives in SQLite, not component state.</li></ul><h2>The tradeoff</h2><p>Offline-first behavior introduces more states than a request-only client. It requires local schema migrations, ordering rules, backoff, token refresh, conflict handling, and visible recovery. That complexity is justified because the alternative is losing work or forcing operators to keep a second paper record. The result is one operational model that remains usable during the connection gaps common to the environment it serves.</p>`
+  },
+]
 
-Starting as a frontend developer and evolving into full-stack development has been an incredible journey. Here are the key lessons I've learned along the way.
-
-## The Frontend Foundation
-
-My journey began with HTML, CSS, and JavaScript. These fundamentals remain crucial:
-
-- **HTML**: Semantic markup matters
-- **CSS**: Understanding the cascade and specificity
-- **JavaScript**: ES6+ features and async programming
-
-## Expanding to Backend
-
-Learning backend development opened new possibilities:
-
-### Node.js and Express
-\`\`\`javascript
-const express = require('express');
-const app = express();
-
-app.get('/api/users', async (req, res) => {
-  const users = await getUsersFromDatabase();
-  res.json(users);
-});
-\`\`\`
-
-### Database Management
-Understanding both SQL and NoSQL databases:
-- PostgreSQL for relational data
-- MongoDB for flexible schemas
-
-## DevOps and Deployment
-
-Learning deployment and server management:
-- Docker for containerization
-- CI/CD pipelines
-- Cloud services (AWS, Vercel, Netlify)
-
-## Key Lessons
-
-1. **Start with fundamentals** - Don't rush to frameworks
-2. **Build projects** - Theory only goes so far
-3. **Learn continuously** - Technology evolves rapidly
-4. **Focus on problem-solving** - Tools are just means to an end
-
-## Conclusion
-
-The full-stack journey is challenging but rewarding. Each technology you learn makes you a more versatile developer. Keep building, keep learning, and don't be afraid to step out of your comfort zone.
-    `,
-    author: 'Francis Gbohunmi',
-    publishedAt: '2024-04-12',
-    tags: ['Career', 'Full-Stack', 'Web Development', 'Personal'],
-    category: 'Career',
-    readTime: 7,
-    featured: false
-  }
-];
-
-export const blogCategories = [
-  'All',
-  'Frontend Development',
-  'Programming', 
-  'Career',
-  'Backend Development',
-  'DevOps'
-];
-
-export const getAllPosts = (): BlogPost[] => {
-  return blogPosts.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
-};
-
-export const getFeaturedPosts = (): BlogPost[] => {
-  return blogPosts.filter(post => post.featured);
-};
-
-export const getPostBySlug = (slug: string): BlogPost | undefined => {
-  return blogPosts.find(post => post.slug === slug);
-};
-
-export const getPostsByCategory = (category: string): BlogPost[] => {
-  if (category === 'All') return getAllPosts();
-  return blogPosts.filter(post => post.category === category);
-};
-
-export const getPostsByTag = (tag: string): BlogPost[] => {
-  return blogPosts.filter(post => post.tags.includes(tag));
-};
-
-export const searchPosts = (query: string): BlogPost[] => {
-  const lowercaseQuery = query.toLowerCase();
-  return blogPosts.filter(post => 
-    post.title.toLowerCase().includes(lowercaseQuery) ||
-    post.excerpt.toLowerCase().includes(lowercaseQuery) ||
-    post.tags.some(tag => tag.toLowerCase().includes(lowercaseQuery)) ||
-    post.category.toLowerCase().includes(lowercaseQuery)
-  );
-};
+export const getBlogPosts = () => [...blogPosts].sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+export const getBlogPost = (slug: string) => blogPosts.find(post => post.slug === slug);
