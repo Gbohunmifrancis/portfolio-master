@@ -1,17 +1,17 @@
 <template>
-  <aside class="tech-rail" aria-label="Technology stack">
-    <span class="tech-rail-label">stack / tools</span>
-    <div class="tech-rail-window">
-      <div class="tech-rail-track">
+  <div class="stack-strip" aria-label="Technology stack">
+    <span class="stack-label">Tools I work with</span>
+    <div class="stack-window">
+      <div class="stack-track">
         <template v-for="copy in 2" :key="copy">
-          <div v-for="item in stack" :key="`${copy}-${item.label}`" class="tech-icon" :title="item.label">
+          <span v-for="item in stack" :key="`${copy}-${item.label}`" class="stack-chip" :aria-hidden="copy === 2">
             <component :is="item.icon" aria-hidden="true" />
-            <span>{{ item.short }}</span>
-          </div>
+            {{ item.label }}
+          </span>
         </template>
       </div>
     </div>
-  </aside>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -35,21 +35,21 @@ import {
 } from '@kalimahapps/vue-icons/de';
 
 const stack = [
-  { label: '.NET', short: '.NET', icon: DeDotNetOriginal },
-  { label: 'C#', short: 'C#', icon: DeCsharpOriginal },
-  { label: 'TypeScript', short: 'TS', icon: DeTypescriptOriginal },
-  { label: 'Vue', short: 'Vue', icon: DeVuejsOriginal },
-  { label: 'React', short: 'React', icon: DeReactOriginal },
-  { label: 'Next.js', short: 'Next', icon: DeNextjsOriginal },
-  { label: 'Python', short: 'Py', icon: DePythonOriginal },
-  { label: 'PostgreSQL', short: 'SQL', icon: DePostgresqlOriginal },
-  { label: 'SQL Server', short: 'MSSQL', icon: DeMicrosoftsqlserverPlain },
-  { label: 'Redis', short: 'Redis', icon: DeRedisOriginal },
-  { label: 'Docker', short: 'Docker', icon: DeDockerOriginal },
-  { label: 'Azure', short: 'Azure', icon: DeAzureOriginal },
-  { label: 'Firebase', short: 'FB', icon: DeFirebasePlain },
-  { label: 'Git', short: 'Git', icon: DeGitOriginal },
-  { label: 'GitHub', short: 'GH', icon: DeGithubOriginal },
-  { label: 'VS Code', short: 'Code', icon: DeVscodeOriginal },
+  { label: '.NET', icon: DeDotNetOriginal },
+  { label: 'C#', icon: DeCsharpOriginal },
+  { label: 'TypeScript', icon: DeTypescriptOriginal },
+  { label: 'Vue', icon: DeVuejsOriginal },
+  { label: 'React', icon: DeReactOriginal },
+  { label: 'Next.js', icon: DeNextjsOriginal },
+  { label: 'Python', icon: DePythonOriginal },
+  { label: 'PostgreSQL', icon: DePostgresqlOriginal },
+  { label: 'SQL Server', icon: DeMicrosoftsqlserverPlain },
+  { label: 'Redis', icon: DeRedisOriginal },
+  { label: 'Docker', icon: DeDockerOriginal },
+  { label: 'Azure', icon: DeAzureOriginal },
+  { label: 'Firebase', icon: DeFirebasePlain },
+  { label: 'Git', icon: DeGitOriginal },
+  { label: 'GitHub', icon: DeGithubOriginal },
+  { label: 'VS Code', icon: DeVscodeOriginal },
 ];
 </script>

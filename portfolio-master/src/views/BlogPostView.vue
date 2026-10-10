@@ -4,7 +4,7 @@
       <router-link class="blog-back" to="/blog">← Back to journal</router-link>
       <header class="blog-post-header"><p class="eyebrow">{{ post.category }}</p><h1>{{ post.title }}</h1><p class="blog-post-dek">{{ post.excerpt }}</p><div class="blog-post-meta"><span>{{ post.author }}</span><span>{{ formattedDate }}</span><span>{{ post.readTime }} min read</span></div></header>
       <div class="blog-post-content" v-html="post.content"></div>
-      <div class="blog-post-tags"><span v-for="tag in post.tags" :key="tag">#{{ tag }}</span></div>
+      <div class="blog-post-tags tag-row"><span v-for="tag in post.tags" :key="tag" class="tag">{{ tag }}</span></div>
     </article>
   </div>
   <div v-else class="blog-post-page"><div class="blog-post-inner"><router-link class="blog-back" to="/blog">← Back to journal</router-link><h1>Note not found.</h1></div></div>
