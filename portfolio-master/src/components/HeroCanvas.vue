@@ -29,11 +29,9 @@ let height = 0;
 const SCALE = 0.2;
 
 const palette = [
-  { hue: 222, sat: 92 },
-  { hue: 262, sat: 80 },
-  { hue: 190, sat: 70 },
-  { hue: 332, sat: 70 },
-  { hue: 150, sat: 60 },
+  { hue: 36, sat: 70 },
+  { hue: 222, sat: 22 },
+  { hue: 20, sat: 48 },
 ];
 
 const isDark = () => document.documentElement.dataset.theme === 'dark';
@@ -80,8 +78,8 @@ const draw = (time: number) => {
 
     const pulse = 0.85 + 0.15 * Math.sin(t * 0.5 + orb.phase);
     const r = orb.r * pulse;
-    const light = dark ? 52 : 84;
-    const alpha = dark ? 0.8 : 0.75;
+    const light = dark ? 42 : 80;
+    const alpha = dark ? 0.6 : 0.65;
     const gradient = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, r);
     gradient.addColorStop(0, `hsla(${orb.hue}, ${orb.sat}%, ${light}%, ${alpha})`);
     gradient.addColorStop(1, `hsla(${orb.hue}, ${orb.sat}%, ${light}%, 0)`);

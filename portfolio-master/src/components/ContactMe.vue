@@ -5,7 +5,7 @@
         <div class="ambient-glow"></div>
         <p class="mono">( 06 ) Contact</p>
         <h2>Have a problem worth <em class="serif gradient-text">solving?</em></h2>
-        <p class="lede">I am interested in useful ideas, thoughtful teams, and ambitious systems. Reach me directly by email, WhatsApp, or phone.</p>
+        <p class="lede">I am interested in useful ideas, thoughtful teams, and products worth building well. Reach me directly by email, WhatsApp, or phone.</p>
         <a class="contact-email" href="mailto:francisgbohunmi@gmail.com">francisgbohunmi@gmail.com</a>
         <div class="contact-actions">
           <a class="button button-primary button-lg" href="mailto:francisgbohunmi@gmail.com">Start a conversation <span>↗</span></a>

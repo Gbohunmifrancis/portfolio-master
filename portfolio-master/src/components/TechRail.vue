@@ -1,6 +1,6 @@
 <template>
   <div class="stack-strip" aria-label="Technology stack">
-    <span class="stack-label">Tools I work with</span>
+    <span class="mono stack-label">Toolbox</span>
     <div class="stack-window">
       <div class="stack-track">
         <template v-for="copy in 2" :key="copy">

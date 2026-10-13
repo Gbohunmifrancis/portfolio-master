@@ -33,7 +33,7 @@
         <div class="footer-grid">
           <div>
             <a class="brand" href="/#home"><span class="brand-mark">FG</span><span class="brand-name">Francis Gbohunmi</span></a>
-            <p class="footer-blurb">Backend-focused software engineer in Lagos, Nigeria. I build the APIs, data models, and systems behind products people use every day.</p>
+            <p class="footer-blurb">Software engineer in Lagos, Nigeria. I design and build complete products, from the system underneath to the screen people use.</p>
           </div>
           <div class="footer-col">
             <h4>Navigate</h4>
