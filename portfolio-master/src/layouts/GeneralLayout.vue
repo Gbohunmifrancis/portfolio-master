@@ -1,6 +1,8 @@
 <template>
   <div class="site-shell">
-    <header class="site-header">
+    <div class="ambient" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="site-header" :class="{ scrolled }">
       <div class="container site-header-inner">
         <a class="brand" href="/#home" aria-label="Francis Gbohunmi home"><span class="brand-mark">FG</span><span class="brand-name">Francis Gbohunmi</span></a>
         <nav id="primary-nav" class="site-nav" :class="{ open: menuOpen }" aria-label="Primary navigation" @click="closeMenu">
@@ -65,10 +67,12 @@ import { useSpotlight } from '@/composables/useMotion';
 type Theme = 'light' | 'dark';
 const theme = ref<Theme>('light');
 const menuOpen = ref(false);
+const scrolled = ref(false);
+const onScroll = () => { scrolled.value = window.scrollY > 24; };
 const route = useRoute();
 const themeLabel = computed(() => `Switch to ${theme.value === 'light' ? 'dark' : 'light'} theme`);
 let revealObserver: IntersectionObserver | null = null;
-useSpotlight('.card, .work-visual, .journal-card');
+useSpotlight('.glass, .journal-card');
 
 const applyTheme = (value: Theme, persist = true) => {
   theme.value = value;
@@ -80,19 +84,19 @@ const toggleTheme = () => applyTheme(theme.value === 'light' ? 'dark' : 'light')
 const closeMenu = () => { menuOpen.value = false; };
 
 const saved = localStorage.getItem('portfolio-theme-manual') as Theme | null;
-const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-applyTheme(saved === 'dark' || saved === 'light' ? saved : prefersDark ? 'dark' : 'light', false);
+applyTheme(saved === 'dark' || saved === 'light' ? saved : 'dark', false);
 
 const revealSelectors = [
   '.section-head',
   '.section-head-stack',
-  '.work-card',
+  '.showcase',
   '.bento-card',
   '.stat',
   '.xp-item',
   '.post-card',
   '.edu-card',
   '.contact-card',
+  '.stack-strip',
   '.journal-page-header',
   '.journal-filters',
   '.journal-card',
@@ -120,7 +124,7 @@ const prepareReveals = async () => {
   });
 };
 
-onMounted(prepareReveals);
+onMounted(() => { prepareReveals(); onScroll(); window.addEventListener('scroll', onScroll, { passive: true }); });
 watch(() => route.fullPath, () => { closeMenu(); prepareReveals(); });
-onBeforeUnmount(() => revealObserver?.disconnect());
+onBeforeUnmount(() => { revealObserver?.disconnect(); window.removeEventListener('scroll', onScroll); });
 </script>

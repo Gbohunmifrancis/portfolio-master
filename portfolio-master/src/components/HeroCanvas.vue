@@ -50,7 +50,7 @@ const resize = () => {
     orbs = palette.map((p, i) => ({
       x: width * (0.15 + 0.7 * ((i * 0.37) % 1)),
       y: height * (0.1 + 0.6 * ((i * 0.61) % 1)),
-      r: Math.max(width, height) * (0.28 + 0.12 * ((i * 0.53) % 1)),
+      r: Math.max(width, height) * (0.32 + 0.14 * ((i * 0.53) % 1)),
       hue: p.hue,
       sat: p.sat,
       dx: (0.08 + 0.06 * ((i * 0.29) % 1)) * (i % 2 ? 1 : -1),
@@ -80,8 +80,8 @@ const draw = (time: number) => {
 
     const pulse = 0.85 + 0.15 * Math.sin(t * 0.5 + orb.phase);
     const r = orb.r * pulse;
-    const light = dark ? 46 : 84;
-    const alpha = dark ? 0.55 : 0.75;
+    const light = dark ? 52 : 84;
+    const alpha = dark ? 0.8 : 0.75;
     const gradient = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, r);
     gradient.addColorStop(0, `hsla(${orb.hue}, ${orb.sat}%, ${light}%, ${alpha})`);
     gradient.addColorStop(1, `hsla(${orb.hue}, ${orb.sat}%, ${light}%, 0)`);

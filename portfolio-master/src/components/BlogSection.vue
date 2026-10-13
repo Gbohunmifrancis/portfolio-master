@@ -1,12 +1,12 @@
 <template>
-  <section id="journal" class="section section-soft">
+  <section id="journal" class="section">
     <div class="container">
       <div class="section-head">
-        <div><p class="eyebrow">Journal</p><h2>Notes from the build.</h2></div>
-        <router-link class="text-link" to="/blog">All notes <span>↗</span></router-link>
+        <div><p class="mono">( 04 ) Journal</p><h2>Notes from the build.</h2></div>
+        <router-link class="text-link" to="/blog">Read all notes <span>↗</span></router-link>
       </div>
       <div class="post-grid">
-        <article v-for="post in posts" :key="post.id" class="card post-card">
+        <article v-for="post in posts" :key="post.id" class="glass post-card">
           <div class="post-card-meta"><span class="tag">{{ post.category }}</span><span>{{ post.readTime }} min read</span></div>
           <h3>{{ post.title }}</h3>
           <p>{{ post.excerpt }}</p>
