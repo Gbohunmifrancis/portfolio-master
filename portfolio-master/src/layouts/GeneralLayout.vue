@@ -60,6 +60,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { RouterView, useRoute } from 'vue-router';
+import { useSpotlight } from '@/composables/useMotion';
 
 type Theme = 'light' | 'dark';
 const theme = ref<Theme>('light');
@@ -67,6 +68,7 @@ const menuOpen = ref(false);
 const route = useRoute();
 const themeLabel = computed(() => `Switch to ${theme.value === 'light' ? 'dark' : 'light'} theme`);
 let revealObserver: IntersectionObserver | null = null;
+useSpotlight('.card, .work-visual, .journal-card');
 
 const applyTheme = (value: Theme, persist = true) => {
   theme.value = value;

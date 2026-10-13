@@ -15,24 +15,27 @@
           </div>
         </div>
       </div>
-      <div class="stats-row">
-        <div v-for="stat in stats" :key="stat.label" class="stat"><strong>{{ stat.value }}</strong><span>{{ stat.label }}</span></div>
+      <div ref="statsRow" class="stats-row">
+        <div class="stat"><strong>{{ shipped }}</strong><span>Products shipped</span></div>
+        <div class="stat"><strong>{{ teams }}</strong><span>Teams worked with</span></div>
+        <div class="stat"><strong>.NET</strong><span>Primary backend stack</span></div>
+        <div class="stat"><strong>Lagos</strong><span>Based in Nigeria, remote friendly</span></div>
       </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+import { useCountUp } from '@/composables/useMotion';
+
 const principles = [
   { title: 'Make the rules explicit.', body: 'Invariants belong in the model and the schema, not in someone’s memory.' },
   { title: 'Design for failure.', body: 'Retries, idempotency, and visible failure modes are part of the feature.' },
   { title: 'Ship what matters.', body: 'Small, well-bounded releases that move a real product forward.' },
 ];
 
-const stats = [
-  { value: '4', label: 'Products shipped' },
-  { value: '3', label: 'Teams worked with' },
-  { value: '.NET', label: 'Primary backend stack' },
-  { value: 'Lagos', label: 'Based in Nigeria, remote friendly' },
-];
+const statsRow = ref<HTMLElement | null>(null);
+const shipped = useCountUp(statsRow, 4);
+const teams = useCountUp(statsRow, 3);
 </script>
