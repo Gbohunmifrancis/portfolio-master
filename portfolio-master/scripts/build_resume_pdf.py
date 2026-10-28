@@ -103,11 +103,13 @@ def project(page: fitz.Page, y: float, name: str, stack: str) -> float:
 def header(page: fitz.Page) -> None:
     textbox(page, "FRANCIS GBOHUNMI", fitz.Rect(LEFT, 34, RIGHT, 58), size=17.97, f=BOLD, align=1, lineheight=1)
     textbox(page, "Backend Software Engineer | C# / .NET | APIs | Real-Time & Offline Systems", fitz.Rect(LEFT, 60, RIGHT, 76), size=10.54, f=BOLD, align=1, lineheight=1)
-    contact = "Lagos, Nigeria  |  +234 812 492 2244  |  francisgbohunmi@gmail.com  |  www.gbohunmi.dev"
+    site = "dev-francis.tech"
+    contact = f"Lagos, Nigeria  |  +234 812 492 2244  |  francisgbohunmi@gmail.com  |  {site}"
     textbox(page, contact, fitz.Rect(LEFT, 76, RIGHT, 91), size=9.46, align=1, lineheight=1)
-    link_start = 407
-    page.draw_line(fitz.Point(link_start, 88), fitz.Point(485, 88), color=LINK, width=0.65)
-    page.insert_link({"kind": fitz.LINK_URI, "from": fitz.Rect(406, 75, 488, 92), "uri": "https://gbohunmi.dev"})
+    link_start = (LEFT + RIGHT) / 2 - REG.text_length(contact, fontsize=9.46) / 2 + REG.text_length(contact[: -len(site)], fontsize=9.46)
+    link_end = link_start + REG.text_length(site, fontsize=9.46)
+    page.draw_line(fitz.Point(link_start, 88), fitz.Point(link_end, 88), color=LINK, width=0.65)
+    page.insert_link({"kind": fitz.LINK_URI, "from": fitz.Rect(link_start - 1, 75, link_end + 1, 92), "uri": f"https://{site}"})
 
 
 def new_page(document: fitz.Document) -> fitz.Page:
