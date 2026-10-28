@@ -4,6 +4,7 @@
     <ProjectsSection />
     <AboutMe />
     <ExperienceSection />
+    <TechRail />
     <BlogSection />
     <EducationSection />
     <ContactMe />
@@ -18,4 +19,5 @@ import EducationSection from '@/components/EducationSection.vue';
 import ExperienceSection from '@/components/ExperienceSection.vue';
 import LandingPage from '@/components/LandingPage.vue';
 import ProjectsSection from '@/components/ProjectsSection.vue';
+import TechRail from '@/components/TechRail.vue';
 </script>

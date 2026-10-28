@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="twogether">
+  <rect width="64" height="64" rx="16" fill="#070a18"/>
+  <g transform="rotate(-8 32 32)">
+    <rect x="13" y="13" width="38" height="38" rx="12" ry="13" fill="none" stroke="#f45c91" stroke-opacity=".6" stroke-width="1.6"/>
+    <path transform="translate(19.5 20) scale(1.04)" d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" fill="#f45c91" stroke="#f45c91" stroke-width="1.6" stroke-linejoin="round"/>
+  </g>
+</svg>

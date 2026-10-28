@@ -1,13 +1,11 @@
 <template>
   <div class="site-shell">
-    <div class="ambient" aria-hidden="true"><i></i><i></i><i></i></div>
-    <div class="grain" aria-hidden="true"></div>
     <header class="site-header" :class="{ scrolled }">
       <div class="container site-header-inner">
-        <a class="brand" href="/#home" aria-label="Francis Gbohunmi home"><span class="brand-mark">FG</span><span class="brand-name">Francis Gbohunmi</span></a>
+        <a class="brand" href="/#home" aria-label="Francis Gbohunmi home">Francis Gbohunmi</a>
         <nav id="primary-nav" class="site-nav" :class="{ open: menuOpen }" aria-label="Primary navigation" @click="closeMenu">
           <a href="/#projects">Work</a>
-          <a href="/#about">About</a>
+          <a href="/#how-i-work">About</a>
           <a href="/#experience">Experience</a>
           <router-link to="/blog">Journal</router-link>
           <a href="/#contact">Contact</a>
@@ -17,7 +15,7 @@
             <svg v-if="theme === 'light'" class="sun" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-12.72-1.42 1.42M7.06 16.94l-1.42 1.42"/><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/></svg>
             <svg v-else viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2A8 8 0 0 1 8.8 4 8 8 0 1 0 20 15.2Z"/></svg>
           </button>
-          <a class="button button-primary button-sm" href="mailto:francisgbohunmi@gmail.com">Let’s talk</a>
+          <a class="button button-primary button-sm" href="mailto:francisgbohunmi@gmail.com">Let’s Talk</a>
           <button class="icon-button menu-toggle" type="button" :aria-expanded="menuOpen" aria-controls="primary-nav" :aria-label="menuOpen ? 'Close menu' : 'Open menu'" @click="menuOpen = !menuOpen">
             <svg v-if="!menuOpen" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
             <svg v-else viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
@@ -32,13 +30,13 @@
       <div class="container">
         <div class="footer-grid">
           <div>
-            <a class="brand" href="/#home"><span class="brand-mark">FG</span><span class="brand-name">Francis Gbohunmi</span></a>
+            <a class="brand" href="/#home">Francis Gbohunmi</a>
             <p class="footer-blurb">Software engineer in Lagos, Nigeria. I design and build complete products, from the system underneath to the screen people use.</p>
           </div>
           <div class="footer-col">
             <h4>Navigate</h4>
             <a href="/#projects">Work</a>
-            <a href="/#about">About</a>
+            <a href="/#how-i-work">About</a>
             <a href="/#experience">Experience</a>
             <router-link to="/blog">Journal</router-link>
           </div>
@@ -62,41 +60,43 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { RouterView, useRoute } from 'vue-router';
-import { useSpotlight } from '@/composables/useMotion';
 
 type Theme = 'light' | 'dark';
 const theme = ref<Theme>('light');
 const menuOpen = ref(false);
 const scrolled = ref(false);
-const onScroll = () => { scrolled.value = window.scrollY > 24; };
 const route = useRoute();
 const themeLabel = computed(() => `Switch to ${theme.value === 'light' ? 'dark' : 'light'} theme`);
 let revealObserver: IntersectionObserver | null = null;
-useSpotlight('.glass, .journal-card');
 
 const applyTheme = (value: Theme, persist = true) => {
   theme.value = value;
   document.documentElement.dataset.theme = value;
-  if (persist) localStorage.setItem('portfolio-theme-manual', value);
+  if (persist) {
+    try { localStorage.setItem('portfolio-theme-manual', value); } catch { /* storage unavailable */ }
+  }
 };
-
 const toggleTheme = () => applyTheme(theme.value === 'light' ? 'dark' : 'light');
 const closeMenu = () => { menuOpen.value = false; };
+const onScroll = () => { scrolled.value = window.scrollY > 12; };
 
-const saved = localStorage.getItem('portfolio-theme-manual') as Theme | null;
-applyTheme(saved === 'dark' || saved === 'light' ? saved : 'dark', false);
+let saved: string | null = null;
+try { saved = localStorage.getItem('portfolio-theme-manual'); } catch { /* storage unavailable */ }
+applyTheme(saved === 'dark' ? 'dark' : 'light', false);
 
 const revealSelectors = [
   '.section-head',
-  '.section-head-stack',
-  '.showcase',
-  '.bento-card',
-  '.stat',
-  '.xp-item',
-  '.post-card',
+  '.fact-card',
+  '.teams-inner',
+  '.project-card',
+  '.mini-card',
+  '.proof-inner',
+  '.principle',
+  '.tool-card',
+  '.xp-card',
+  '.note',
   '.edu-card',
   '.contact-card',
-  '.stack-strip',
   '.journal-page-header',
   '.journal-filters',
   '.journal-card',
@@ -119,7 +119,7 @@ const prepareReveals = async () => {
 
   document.querySelectorAll<HTMLElement>(revealSelectors).forEach((element, index) => {
     element.classList.add('reveal-item');
-    element.style.setProperty('--reveal-delay', `${(index % 3) * 60}ms`);
+    element.style.setProperty('--reveal-delay', `${(index % 3) * 70}ms`);
     revealObserver?.observe(element);
   });
 };

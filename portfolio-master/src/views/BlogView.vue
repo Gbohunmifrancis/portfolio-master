@@ -2,7 +2,7 @@
   <div class="journal-page">
     <div class="journal-page-inner">
       <header class="journal-page-header">
-        <div><p class="eyebrow">( Journal )</p><h1>Notes from the build.</h1></div>
+        <div><p class="eyebrow">Journal</p><h1>Notes from the build.</h1></div>
         <p>Detailed, project-specific case studies on architecture, failure modes, tradeoffs, and the fixes that made each system more dependable.</p>
       </header>
       <div class="journal-filters">

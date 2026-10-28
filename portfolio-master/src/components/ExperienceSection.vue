@@ -2,12 +2,11 @@
   <section id="experience" class="section">
     <div class="container">
       <div class="section-head">
-        <div><p class="mono">( 03 ) Experience</p><h2>Recent chapters.</h2></div>
-        <p class="section-note">Backend and platform work across fintech, ERP, and education products.</p>
+        <h2 class="underline-title">Where I’ve Worked</h2>
+        <p>Backend and platform work across fintech, ERP and education products.</p>
       </div>
       <div class="xp-list">
-        <article v-for="item in experiences" :key="item.company" class="xp-item">
-          <div class="mono xp-date">{{ item.date }}</div>
+        <article v-for="item in experiences" :key="item.company" class="xp-card">
           <div class="xp-logo" :class="{ dark: item.darkLogo }"><img :src="item.logo" :alt="`${item.company} logo`" loading="lazy" /></div>
           <div>
             <p class="xp-role">{{ item.role }}</p>
@@ -16,6 +15,7 @@
             <p class="xp-desc mobile-copy">{{ item.mobileDescription }}<a v-if="item.linkText" :href="item.linkUrl" target="_blank" rel="noreferrer">{{ item.linkText }}</a>{{ item.mobileDescriptionSuffix }}</p>
             <div class="tag-row"><span v-for="tech in item.stack" :key="tech" class="tag">{{ tech }}</span></div>
           </div>
+          <span class="xp-date">{{ item.date }}</span>
         </article>
       </div>
     </div>
