@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /blog/admin
+
+Sitemap: https://dev-francis.tech/sitemap.xml
