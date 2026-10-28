@@ -1,6 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Glazion">
-  <rect width="64" height="64" rx="16" fill="#26525c"/>
-  <path d="M0 16A16 16 0 0 1 16 0h32a16 16 0 0 1 16 16v8c-4 0-5 3-5 7 0 3-2 5-4 5s-4-2-4-5c0-5-2-8-6-8s-5 5-5 11c0 3-2 5-4 5s-4-2-4-5c0-6-1-10-5-10s-5 3-5 6c0 2-1.6 4-3.5 4S10 33 10 31c0-4-2-7-6-7H0Z" fill="#f1e3c0"/>
-  <circle cx="32" cy="46" r="7" fill="none" stroke="#f1e3c0" stroke-width="2.4"/>
-  <circle cx="32" cy="46" r="2.4" fill="#e3a94f"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" aria-label="Glazion" role="img" viewBox="0 0 64 64"><rect width="64" height="64" fill="#26525c" rx="16"/><path fill="#f1e3c0" d="M0 16A16 16 0 0 1 16 0h32a16 16 0 0 1 16 16v8c-4 0-5 3-5 7 0 3-2 5-4 5s-4-2-4-5c0-5-2-8-6-8s-5 5-5 11c0 3-2 5-4 5s-4-2-4-5c0-6-1-10-5-10s-5 3-5 6c0 2-1.6 4-3.5 4S10 33 10 31c0-4-2-7-6-7H0Z"/><circle cx="32" cy="46" r="7" fill="none" stroke="#f1e3c0" stroke-width="2.4"/><circle cx="32" cy="46" r="2.4" fill="#e3a94f"/></svg>
