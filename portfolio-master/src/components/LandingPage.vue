@@ -1,56 +1,42 @@
 <template>
   <section id="home" class="hero">
-    <HeroCanvas />
-    <div class="hero-orbit" aria-hidden="true"></div>
-    <div class="container">
-      <div class="hero-layout">
-        <div class="hero-copy">
-          <p class="mono hero-kicker">Software engineer · Lagos, Nigeria</p>
-          <h1 aria-label="Software engineer building products for real life.">
-            <span v-for="(line, lineIndex) in lines" :key="lineIndex" class="line">
-              <span v-for="(word, wordIndex) in line" :key="`${lineIndex}-${wordIndex}`" class="word" :style="{ '--i': offsets[lineIndex] + wordIndex }">
-                <component :is="word.serif ? 'em' : 'span'" :class="{ 'serif gradient-text': word.serif }">{{ word.text }}</component>
-              </span>
-            </span>
-          </h1>
+    <div class="container hero-layout">
+      <div class="hero-copy">
+        <p class="hero-hello">Hi, I’m Francis Gbohunmi</p>
+        <h1>Software Engineer Building Products For <span class="highlight">Real Life.</span></h1>
+        <p class="hero-lede">I take products from idea to production: the architecture, the backend, the web and mobile apps, and the operations that keep them running for the people who use them.</p>
+        <div class="hero-actions">
+          <a ref="primaryButton" class="button button-primary magnetic" href="#projects">See My Work <span>↓</span></a>
+          <a ref="secondaryButton" class="button button-outline magnetic" href="/CV.pdf" download="francis-gbohunmi-resume.pdf">Download Resume <span>↓</span></a>
         </div>
-
-        <div class="hero-side">
-          <p class="hero-lede">I’m Francis Gbohunmi, a software engineer who takes products from idea to production: architecture, backend, web and mobile, and the operations that keep them running.</p>
-          <div class="hero-actions">
-            <a ref="primaryButton" class="button button-primary button-lg magnetic" href="#projects">See the work <span>↓</span></a>
-            <a ref="secondaryButton" class="button button-ghost button-lg magnetic" href="/CV.pdf" download="francis-gbohunmi-resume.pdf">Resume <span>↓</span></a>
-          </div>
-          <div class="hero-facts">
-            <div><strong>4</strong><span>Products shipped</span></div>
-            <div><strong>Full-stack</strong><span>Backend, web, mobile, ops</span></div>
-          </div>
-        </div>
+        <p class="hero-status"><i aria-hidden="true"></i> Currently open to new projects</p>
       </div>
 
-      <div class="hero-foot">
-        <span class="mono">Currently open to new projects</span>
-        <a class="mono scroll-hint" href="#projects"><i aria-hidden="true"></i> Scroll to selected work</a>
+      <div class="hero-side">
+        <div class="fact-card taped tape-top">
+          <h3>Quick facts</h3>
+          <dl>
+            <div><dt>Role</dt><dd>Software Engineer</dd></div>
+            <div><dt>Based in</dt><dd>Lagos, Nigeria</dd></div>
+            <div><dt>I build</dt><dd>Backend · Web · Mobile</dd></div>
+            <div><dt>Core stack</dt><dd>.NET · TypeScript · Python</dd></div>
+            <div><dt>Status</dt><dd>Available <i aria-hidden="true"></i></dd></div>
+          </dl>
+        </div>
+        <p class="sticky-note">6 products built, and counting!</p>
       </div>
     </div>
   </section>
+  <TeamsBand />
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import HeroCanvas from '@/components/HeroCanvas.vue';
+import TeamsBand from '@/components/TeamsBand.vue';
 import { useMagnetic } from '@/composables/useMotion';
-
-type Word = { text: string; serif?: boolean };
-const lines: Word[][] = [
-  [{ text: 'Software' }, { text: 'engineer' }],
-  [{ text: 'building' }, { text: 'products' }],
-  [{ text: 'for' }, { text: 'real', serif: true }, { text: 'life.', serif: true }],
-];
-const offsets = lines.reduce<number[]>((acc, line, index) => { acc.push(index === 0 ? 0 : acc[index - 1] + lines[index - 1].length); return acc; }, []);
 
 const primaryButton = ref<HTMLElement | null>(null);
 const secondaryButton = ref<HTMLElement | null>(null);
-useMagnetic(primaryButton);
-useMagnetic(secondaryButton, 0.14);
+useMagnetic(primaryButton, 0.12);
+useMagnetic(secondaryButton, 0.1);
 </script>

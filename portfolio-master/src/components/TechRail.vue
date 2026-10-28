@@ -1,17 +1,23 @@
 <template>
-  <div class="stack-strip" aria-label="Technology stack">
-    <span class="mono stack-label">Toolbox</span>
-    <div class="stack-window">
-      <div class="stack-track">
-        <template v-for="copy in 2" :key="copy">
-          <span v-for="item in stack" :key="`${copy}-${item.label}`" class="stack-chip" :aria-hidden="copy === 2">
-            <component :is="item.icon" aria-hidden="true" />
-            {{ item.label }}
-          </span>
-        </template>
+  <section id="toolbox" class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="underline-title">What I Build With</h2>
+        <p>The tools I reach for most to turn ideas into products people can actually use.</p>
+      </div>
+      <div class="toolbox">
+        <article v-for="(group, index) in groups" :key="group.name" class="tool-card">
+          <div>
+            <span class="num">0{{ index + 1 }}</span>
+            <h3>{{ group.name }}</h3>
+          </div>
+          <div class="tool-list">
+            <span v-for="tool in group.tools" :key="tool.label" class="tool"><component :is="tool.icon" aria-hidden="true" />{{ tool.label }}</span>
+          </div>
+        </article>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -20,36 +26,42 @@ import {
   DeCsharpOriginal,
   DeDockerOriginal,
   DeDotNetOriginal,
-  DeFirebasePlain,
+  DeFastapiOriginal,
   DeGitOriginal,
-  DeGithubOriginal,
+  DeKotlinOriginal,
   DeMicrosoftsqlserverPlain,
   DeNextjsOriginal,
   DePostgresqlOriginal,
   DePythonOriginal,
   DeReactOriginal,
   DeRedisOriginal,
+  DeThreejsOriginal,
   DeTypescriptOriginal,
-  DeVscodeOriginal,
   DeVuejsOriginal,
 } from '@kalimahapps/vue-icons/de';
 
-const stack = [
-  { label: '.NET', icon: DeDotNetOriginal },
-  { label: 'C#', icon: DeCsharpOriginal },
-  { label: 'TypeScript', icon: DeTypescriptOriginal },
-  { label: 'Vue', icon: DeVuejsOriginal },
-  { label: 'React', icon: DeReactOriginal },
-  { label: 'Next.js', icon: DeNextjsOriginal },
-  { label: 'Python', icon: DePythonOriginal },
-  { label: 'PostgreSQL', icon: DePostgresqlOriginal },
-  { label: 'SQL Server', icon: DeMicrosoftsqlserverPlain },
-  { label: 'Redis', icon: DeRedisOriginal },
-  { label: 'Docker', icon: DeDockerOriginal },
-  { label: 'Azure', icon: DeAzureOriginal },
-  { label: 'Firebase', icon: DeFirebasePlain },
-  { label: 'Git', icon: DeGitOriginal },
-  { label: 'GitHub', icon: DeGithubOriginal },
-  { label: 'VS Code', icon: DeVscodeOriginal },
+const groups = [
+  { name: 'Backend', tools: [
+    { label: '.NET', icon: DeDotNetOriginal },
+    { label: 'C#', icon: DeCsharpOriginal },
+    { label: 'PostgreSQL', icon: DePostgresqlOriginal },
+    { label: 'SQL Server', icon: DeMicrosoftsqlserverPlain },
+    { label: 'Redis', icon: DeRedisOriginal },
+  ] },
+  { name: 'Web & Mobile', tools: [
+    { label: 'TypeScript', icon: DeTypescriptOriginal },
+    { label: 'React · Next.js', icon: DeNextjsOriginal },
+    { label: 'Vue', icon: DeVuejsOriginal },
+    { label: 'React Native', icon: DeReactOriginal },
+    { label: 'Kotlin · Android', icon: DeKotlinOriginal },
+    { label: 'three.js', icon: DeThreejsOriginal },
+  ] },
+  { name: 'Data & Ops', tools: [
+    { label: 'Python', icon: DePythonOriginal },
+    { label: 'FastAPI', icon: DeFastapiOriginal },
+    { label: 'Docker', icon: DeDockerOriginal },
+    { label: 'Azure', icon: DeAzureOriginal },
+    { label: 'Git', icon: DeGitOriginal },
+  ] },
 ];
 </script>
