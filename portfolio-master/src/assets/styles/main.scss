@@ -216,6 +216,24 @@ p { margin: 0; }
 .project-card:hover .phone.front { transform: rotate(-4deg) translateY(-1.2rem); }
 .project-card:hover .phone.back { transform: rotate(14deg) translate(1.2rem, -0.6rem); }
 
+/* NoteFusion: its store shots, fanned, then all of them in a strip */
+.store-fan { inset: 0; position: absolute; }
+.store-shot { aspect-ratio: 9 / 16; border-radius: 2.2rem; box-shadow: 0 30px 60px rgba(20, 20, 50, 0.35); display: block; overflow: hidden; position: absolute; transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); width: 24rem; }
+.store-shot img { height: 100%; object-fit: cover; width: 100%; }
+.store-shot.fan-0 { left: 50%; top: 2rem; transform: translateX(-50%); z-index: 3; }
+.store-shot.fan-1 { left: 50%; top: 6rem; transform: translateX(-112%) rotate(-8deg); z-index: 2; }
+.store-shot.fan-2 { left: 50%; top: 6rem; transform: translateX(12%) rotate(8deg); z-index: 1; }
+.project-card:hover .store-shot.fan-0 { transform: translateX(-50%) translateY(-1.2rem); }
+.project-card:hover .store-shot.fan-1 { transform: translateX(-120%) rotate(-11deg); }
+.project-card:hover .store-shot.fan-2 { transform: translateX(20%) rotate(11deg); }
+.project-card.has-gallery .project-visual { margin-top: -5rem; min-height: 50rem; }
+.store-strip { grid-column: 1 / -1; position: relative; z-index: 1; }
+.store-strip .hand { color: var(--pen); font-size: 2.6rem; margin-bottom: 1.4rem; }
+.store-strip-track { display: grid; gap: 1.6rem; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.store-thumb { aspect-ratio: 9 / 16; border-radius: 1.4rem; box-shadow: var(--shadow-sm); display: block; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.store-thumb:hover { box-shadow: var(--shadow); transform: translateY(-4px) rotate(-1deg); }
+.store-thumb img { height: 100%; object-fit: cover; width: 100%; }
+
 /* Glazion: an API "spec sheet" instead of phones */
 .spec-sheet { background: var(--card-2); border-radius: 0.8rem; box-shadow: var(--shadow); left: 2%; padding: 3.2rem 2.4rem 2.6rem; position: absolute; right: 0; top: 4rem; transform: rotate(2.5deg); transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
 .project-card:hover .spec-sheet { transform: rotate(1deg) translateY(-1rem); }
@@ -404,6 +422,7 @@ p { margin: 0; }
   .hero-side { margin: 0 auto; max-width: 520px; width: 100%; }
   .project-card { grid-template-columns: minmax(0, 1fr); padding: 4.8rem; }
   .project-visual { margin: 0; min-height: 52rem; }
+  .project-card.has-gallery .project-visual { margin-top: 0; min-height: 52rem; }
   .project-card .annotation { right: 4rem; top: 4rem; }
   .proof-inner { grid-template-columns: minmax(0, 1fr); }
   .work-layout { grid-template-columns: minmax(0, 1fr); }
@@ -450,6 +469,12 @@ p { margin: 0; }
   .project-card .annotation { display: none; }
   .project-actions .button { flex: 1; }
   .project-visual { min-height: 44rem; }
+  .project-card.has-gallery .project-visual { min-height: 40rem; }
+  .store-shot { border-radius: 1.6rem; width: 17rem; }
+  .store-shot.fan-1, .store-shot.fan-2 { top: 3.6rem; }
+  .store-strip-track { display: flex; margin: 0 -2.4rem; overflow-x: auto; padding: 0.4rem 2.4rem 1.2rem; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .store-strip-track::-webkit-scrollbar { display: none; }
+  .store-thumb { flex: 0 0 15rem; scroll-snap-align: start; }
   .phone { border-radius: 3.4rem; border-width: 0.7rem; width: 20rem; }
   .phone img { border-radius: 2.7rem; }
   .phone.front { left: 2%; }
@@ -508,11 +533,15 @@ p { margin: 0; }
   .project-title h3 { font-size: 3.6rem; }
   .phone { width: 17rem; }
   .project-visual { min-height: 38rem; }
+  .store-shot { width: 15rem; }
 }
 
 @media (hover: none), (pointer: coarse) {
   .project-card:hover .phone.front { transform: rotate(-2deg); }
   .project-card:hover .phone.back { transform: rotate(10deg); }
+  .project-card:hover .store-shot.fan-0 { transform: translateX(-50%); }
+  .project-card:hover .store-shot.fan-1 { transform: translateX(-112%) rotate(-8deg); }
+  .project-card:hover .store-shot.fan-2 { transform: translateX(12%) rotate(8deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {

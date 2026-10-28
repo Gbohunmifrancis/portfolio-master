@@ -7,7 +7,7 @@
       </div>
 
       <div class="project-list">
-        <article v-for="(project, index) in featured" :key="project.name" class="project-card">
+        <article v-for="(project, index) in featured" :key="project.name" class="project-card" :class="{ 'has-gallery': project.gallery }">
           <div class="project-copy">
             <span class="project-num">0{{ index + 1 }}</span>
             <div class="project-title">
@@ -32,7 +32,12 @@
           </span>
 
           <div class="project-visual">
-            <template v-if="project.screens">
+            <div v-if="project.gallery" class="store-fan">
+              <a v-for="(shot, i) in project.gallery.slice(0, 3)" :key="shot.src" class="store-shot" :class="`fan-${i}`" :href="shot.full" target="_blank" rel="noreferrer" :aria-label="`${shot.alt}, full size`">
+                <img :src="shot.src" :alt="shot.alt" width="540" height="960" loading="lazy" />
+              </a>
+            </div>
+            <template v-else-if="project.screens">
               <div class="phone back"><img :src="project.screens[1]" :alt="`${project.name} screen`" loading="lazy" /></div>
               <div class="phone front"><img :src="project.screens[0]" :alt="`${project.name} screen`" loading="lazy" /></div>
             </template>
@@ -58,6 +63,15 @@
                 <span style="background: linear-gradient(160deg, #c98f5b, #8a5428)"></span>
               </div>
               <p class="tiles-caption">Test tiles matched by UMF chemistry</p>
+            </div>
+          </div>
+
+          <div v-if="project.gallery" class="store-strip">
+            <p class="hand">The app, screen by screen</p>
+            <div class="store-strip-track">
+              <a v-for="shot in project.gallery" :key="shot.src" class="store-thumb" :href="shot.full" target="_blank" rel="noreferrer" :aria-label="`${shot.alt}, full size`">
+                <img :src="shot.src" :alt="shot.alt" width="540" height="960" loading="lazy" />
+              </a>
             </div>
           </div>
         </article>
@@ -98,22 +112,31 @@ interface FeaturedProject {
   code: string;
   annotation: string;
   screens?: [string, string];
+  gallery?: { src: string; full: string; alt: string }[];
   note?: string;
 }
+
+const nfShot = (name: string, alt: string) => ({ src: `/projects/notefusion/${name}.webp`, full: `/projects/notefusion/${name}-1080.webp`, alt });
 
 const featured: FeaturedProject[] = [
   {
     name: 'NoteFusion',
     logo: '/projects/logos/notefusion.png',
     kind: 'Music Transcription App',
-    description: 'Listens to humming, singing, a choir or a song link and writes it out as movable-do Tonic Solfa and staff notation, with choir parts, practice and a hymn library around it. On the web and on Android.',
+    description: 'Listens to humming, singing, a choir or a song link and writes it out as movable-do Tonic Solfa and staff notation. Around it: SATB parts to learn, the song’s own band under your solfa, a daily practice path, hundreds of hymns offline and a shared choir library. On the web and on Android.',
     short: 'Turns humming, singing or a song link into Tonic Solfa and staff notation.',
     role: 'Built end to end: .NET API, Python ML worker, website and Android app',
     tags: ['.NET 10', 'Python · FastAPI', 'React Native · Expo', 'PostgreSQL'],
     live: 'https://notefusion.studio',
     code: 'https://github.com/Gbohunmifrancis/Notefusion',
     annotation: 'hum it,<br />read it!',
-    screens: ['/projects/screens/notefusion-solfa.webp', '/projects/screens/notefusion-onboarding.webp'],
+    gallery: [
+      nfShot('song-backing', 'NoteFusion: sing over the song’s own band'),
+      nfShot('practice', 'NoteFusion: a few minutes of practice a day'),
+      nfShot('learn-your-part', 'NoteFusion: learn your SATB part'),
+      nfShot('hymns-offline', 'NoteFusion: hundreds of hymns, offline'),
+      nfShot('choir', 'NoteFusion: share it with your whole choir'),
+    ],
   },
   {
     name: 'After Round 1',
