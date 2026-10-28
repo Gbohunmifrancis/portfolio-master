@@ -7,7 +7,7 @@
       </div>
 
       <div class="project-list">
-        <article v-for="(project, index) in featured" :key="project.name" class="project-card" :class="{ 'has-gallery': project.gallery }">
+        <article v-for="(project, index) in featured" :key="project.name" class="project-card" :class="{ 'has-gallery': project.gallery }" :style="project.shotRatio ? { '--shot-ratio': project.shotRatio } : undefined">
           <div class="project-copy">
             <span class="project-num">0{{ index + 1 }}</span>
             <div class="project-title">
@@ -23,6 +23,13 @@
               <a v-if="project.live" class="button button-primary" :href="project.live" target="_blank" rel="noreferrer">Visit Site <span>↗</span></a>
               <a class="button button-outline" :href="project.code" target="_blank" rel="noreferrer">Source <span>↗</span></a>
             </div>
+            <div v-if="project.play" class="store-badges">
+              <span>Available on</span>
+              <a class="play-badge" :href="project.play" target="_blank" rel="noreferrer" :aria-label="`Get ${project.name} on Google Play`">
+                <svg viewBox="0 0 24 26" aria-hidden="true"><path d="M1.2.6 13.4 12.8 1.2 25a1.6 1.6 0 0 1-.7-1.4V2a1.6 1.6 0 0 1 .7-1.4Z" fill="#00d7fe"/><path d="m17.4 8.8-4 4 4 4 4.7-2.7c1.3-.8 1.3-1.9 0-2.6Z" fill="#ffbc00"/><path d="M13.4 12.8 1.2 25c.5.5 1.2.5 2 .1l14.2-8.3Z" fill="#ff3a44"/><path d="M13.4 12.8 17.4 8.8 3.2.5C2.4.1 1.7.1 1.2.6Z" fill="#00f076"/></svg>
+                <span><small>Get it on</small><strong>Google Play</strong></span>
+              </a>
+            </div>
             <p v-if="project.note" class="project-note">{{ project.note }}</p>
           </div>
 
@@ -32,7 +39,10 @@
           </span>
 
           <div class="project-visual">
-            <div v-if="project.gallery" class="store-fan">
+            <a v-if="project.banner" class="store-banner taped" :href="project.banner.full" target="_blank" rel="noreferrer" :aria-label="`${project.banner.alt}, full size`">
+              <img :src="project.banner.src" :alt="project.banner.alt" width="720" height="378" loading="lazy" />
+            </a>
+            <div v-else-if="project.gallery" class="store-fan">
               <a v-for="(shot, i) in project.gallery.slice(0, 3)" :key="shot.src" class="store-shot" :class="`fan-${i}`" :href="shot.full" target="_blank" rel="noreferrer" :aria-label="`${shot.alt}, full size`">
                 <img :src="shot.src" :alt="shot.alt" width="540" height="960" loading="lazy" />
               </a>
@@ -68,7 +78,7 @@
 
           <div v-if="project.gallery" class="store-strip">
             <p class="hand">The app, screen by screen</p>
-            <div class="store-strip-track">
+            <div class="store-strip-track" :style="{ '--shots': project.gallery.length }">
               <a v-for="shot in project.gallery" :key="shot.src" class="store-thumb" :href="shot.full" target="_blank" rel="noreferrer" :aria-label="`${shot.alt}, full size`">
                 <img :src="shot.src" :alt="shot.alt" width="540" height="960" loading="lazy" />
               </a>
@@ -113,6 +123,9 @@ interface FeaturedProject {
   annotation: string;
   screens?: [string, string];
   gallery?: { src: string; full: string; alt: string }[];
+  banner?: { src: string; full: string; alt: string };
+  shotRatio?: string;
+  play?: string;
   note?: string;
 }
 
@@ -130,6 +143,7 @@ const featured: FeaturedProject[] = [
     live: 'https://notefusion.studio',
     code: 'https://github.com/Gbohunmifrancis/Notefusion',
     annotation: 'hum it,<br />read it!',
+    play: 'https://play.google.com/store/apps/details?id=com.notefusion.com',
     gallery: [
       nfShot('song-backing', 'NoteFusion: sing over the song’s own band'),
       nfShot('practice', 'NoteFusion: a few minutes of practice a day'),
@@ -149,20 +163,29 @@ const featured: FeaturedProject[] = [
     live: 'https://afterround1.tech',
     code: 'https://github.com/Gbohunmifrancis/After-Round-1',
     annotation: 'same games,<br />bigger vibes',
+    play: 'https://play.google.com/store/apps/details?id=com.afterround1.com',
     screens: ['/projects/screens/ar1-home.webp', '/projects/screens/ar1-leaderboard.webp'],
   },
   {
-    name: '2gether',
-    logo: '/projects/logos/2gether.svg',
-    kind: 'Private Couples App',
-    description: 'A private, invite-only space for one couple: shared dares, cycle tracking, daily questions, live location, an album and synchronous games. The web app runs as Twogether, and the Android app ships as Heartpact.',
-    short: 'An invite-only space for one couple: dares, cycle tracking, questions and games.',
-    role: 'Built end to end: .NET API, real-time hubs, web app and Android',
-    tags: ['.NET 10', 'SignalR', 'Next.js', 'Kotlin · Android'],
+    name: 'Heartpact',
+    logo: '/projects/logos/heartpact.svg',
+    kind: 'Couples App · formerly 2gether',
+    description: 'Keep your promises to each other: dares, hearts and a small daily ritual, for two. The phone camera counts every rep of a dare, one question a day shows your partner’s answer once you have answered too, and games like draw and guess keep you playing even apart. It began as 2gether, which still runs on the web as Twogether.',
+    short: 'Dares, hearts and a daily ritual for two, with the camera counting every rep.',
+    role: 'Built end to end: .NET API, real-time hubs, Android app and web app',
+    tags: ['Kotlin · Android', 'MediaPipe pose', '.NET 10', 'SignalR'],
     live: 'https://twogether-omega-three.vercel.app',
     code: 'https://github.com/Gbohunmifrancis/2gether',
     annotation: 'just the<br />two of you',
-    screens: ['/projects/screens/2gether-today.webp', '/projects/screens/2gether-us.webp'],
+    note: 'The Android app is on its way to Google Play; the web app is live.',
+    shotRatio: '4 / 5',
+    banner: { src: '/projects/heartpact/banner.webp', full: '/projects/heartpact/banner-full.webp', alt: 'Heartpact: keep your promises to each other' },
+    gallery: [
+      { src: '/projects/heartpact/promises.webp', full: '/projects/heartpact/promises-full.webp', alt: 'Heartpact: today’s dare and its countdown' },
+      { src: '/projects/heartpact/camera.webp', full: '/projects/heartpact/camera-full.webp', alt: 'Heartpact: the camera counts every rep' },
+      { src: '/projects/heartpact/question.webp', full: '/projects/heartpact/question-full.webp', alt: 'Heartpact: one question a day' },
+      { src: '/projects/heartpact/play-together.webp', full: '/projects/heartpact/play-together-full.webp', alt: 'Heartpact: play together, even apart' },
+    ],
   },
   {
     name: 'Glazion v2',

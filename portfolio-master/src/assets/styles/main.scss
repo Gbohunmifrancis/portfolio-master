@@ -218,7 +218,7 @@ p { margin: 0; }
 
 /* NoteFusion: its store shots, fanned, then all of them in a strip */
 .store-fan { inset: 0; position: absolute; }
-.store-shot { aspect-ratio: 9 / 16; border-radius: 2.2rem; box-shadow: 0 30px 60px rgba(20, 20, 50, 0.35); display: block; overflow: hidden; position: absolute; transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); width: 24rem; }
+.store-shot { aspect-ratio: var(--shot-ratio, 9 / 16); border-radius: 2.2rem; box-shadow: 0 30px 60px rgba(20, 20, 50, 0.35); display: block; overflow: hidden; position: absolute; transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); width: 24rem; }
 .store-shot img { height: 100%; object-fit: cover; width: 100%; }
 .store-shot.fan-0 { left: 50%; top: 2rem; transform: translateX(-50%); z-index: 3; }
 .store-shot.fan-1 { left: 50%; top: 6rem; transform: translateX(-112%) rotate(-8deg); z-index: 2; }
@@ -229,10 +229,23 @@ p { margin: 0; }
 .project-card.has-gallery .project-visual { margin-top: -5rem; min-height: 50rem; }
 .store-strip { grid-column: 1 / -1; position: relative; z-index: 1; }
 .store-strip .hand { color: var(--pen); font-size: 2.6rem; margin-bottom: 1.4rem; }
-.store-strip-track { display: grid; gap: 1.6rem; grid-template-columns: repeat(5, minmax(0, 1fr)); }
-.store-thumb { aspect-ratio: 9 / 16; border-radius: 1.4rem; box-shadow: var(--shadow-sm); display: block; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.store-strip-track { display: grid; gap: 1.6rem; grid-template-columns: repeat(var(--shots, 5), minmax(0, 1fr)); }
+.store-thumb { aspect-ratio: var(--shot-ratio, 9 / 16); border-radius: 1.4rem; box-shadow: var(--shadow-sm); display: block; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
 .store-thumb:hover { box-shadow: var(--shadow); transform: translateY(-4px) rotate(-1deg); }
 .store-thumb img { height: 100%; object-fit: cover; width: 100%; }
+
+.store-banner { background: #fff; border-radius: 0.6rem; box-shadow: var(--shadow); display: block; left: 2%; padding: 1rem; position: absolute; right: 0; top: 8rem; transform: rotate(2.5deg); transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.store-banner img { border-radius: 0.4rem; width: 100%; }
+.project-card:hover .store-banner { transform: rotate(1deg) translateY(-1rem); }
+
+/* Google Play badge, in the notebook's outlined style */
+.store-badges { align-items: center; display: flex; flex-wrap: wrap; gap: 1.2rem 1.6rem; margin-top: 2.4rem; }
+.store-badges > span { color: var(--ink-2); font-size: 1.6rem; font-weight: 800; }
+.play-badge { align-items: center; background: var(--card-2); border: 1.5px solid var(--ink); border-radius: 1.2rem; color: var(--ink); display: inline-flex; gap: 1rem; min-height: 5.2rem; padding: 0.6rem 1.8rem 0.6rem 1.4rem; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.play-badge:hover { box-shadow: 3px 4px 0 var(--marker); transform: translate(-1px, -2px) rotate(-1deg); }
+.play-badge svg { flex: 0 0 auto; height: 2.6rem; width: 2.4rem; }
+.play-badge small { display: block; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.04em; line-height: 1.1; text-transform: uppercase; }
+.play-badge strong { display: block; font-family: 'Fraunces', Georgia, serif; font-size: 1.9rem; font-weight: 600; line-height: 1.1; }
 
 /* Glazion: an API "spec sheet" instead of phones */
 .spec-sheet { background: var(--card-2); border-radius: 0.8rem; box-shadow: var(--shadow); left: 2%; padding: 3.2rem 2.4rem 2.6rem; position: absolute; right: 0; top: 4rem; transform: rotate(2.5deg); transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
@@ -423,6 +436,8 @@ p { margin: 0; }
   .project-card { grid-template-columns: minmax(0, 1fr); padding: 4.8rem; }
   .project-visual { margin: 0; min-height: 52rem; }
   .project-card.has-gallery .project-visual { margin-top: 0; min-height: 52rem; }
+  .project-card.has-gallery .project-visual:has(.store-banner) { min-height: 42rem; }
+  .store-banner { top: 2rem; }
   .project-card .annotation { right: 4rem; top: 4rem; }
   .proof-inner { grid-template-columns: minmax(0, 1fr); }
   .work-layout { grid-template-columns: minmax(0, 1fr); }
@@ -470,6 +485,8 @@ p { margin: 0; }
   .project-actions .button { flex: 1; }
   .project-visual { min-height: 44rem; }
   .project-card.has-gallery .project-visual { min-height: 40rem; }
+  .project-card.has-gallery .project-visual:has(.store-banner) { min-height: 22rem; }
+  .store-banner { left: 0; padding: 0.6rem; top: 0; transform: rotate(1.5deg); }
   .store-shot { border-radius: 1.6rem; width: 17rem; }
   .store-shot.fan-1, .store-shot.fan-2 { top: 3.6rem; }
   .store-strip-track { display: flex; margin: 0 -2.4rem; overflow-x: auto; padding: 0.4rem 2.4rem 1.2rem; scroll-snap-type: x mandatory; scrollbar-width: none; }
